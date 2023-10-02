@@ -1,0 +1,1399 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>genai_chat.openai API documentation</title>
+<meta name="description" content="OpenAI GenAI operations." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}#lunr-search{width:100%;font-size:1em;padding:6px 9px 5px 9px;border:1px solid silver}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>genai_chat.openai</code></h1>
+</header>
+<section id="section-intro">
+<p>OpenAI GenAI operations.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#!/usr/bin/env python
+# encoding: utf-8
+
+# João Antunes &lt;joao8tunes@gmail.com&gt;
+# https://github.com/joao8tunes
+
+&#34;&#34;&#34;
+OpenAI GenAI operations.
+&#34;&#34;&#34;
+
+from openai.api_resources.abstract.engine_api_resource import EngineAPIResource
+import openai
+
+from typing import Callable, Any
+import functools
+import logging
+import json
+
+from genai_chat.settings import get_settings
+from genai_chat.utils import merge_dict
+from genai_chat.core import Bot
+
+
+class FunctionCallingProperty(json.JSONEncoder):
+    &#34;&#34;&#34;Function calling property.&#34;&#34;&#34;
+
+    name: str
+    &#34;&#34;&#34;Property name.&#34;&#34;&#34;
+    descr_or_enum: Any
+    &#34;&#34;&#34;Description or enumerate property.&#34;&#34;&#34;
+    required: bool
+    &#34;&#34;&#34;Whether it&#39;s a required property.&#34;&#34;&#34;
+
+    def __init__(self, name: str, descr_or_enum: Any, required: bool = False):
+        &#34;&#34;&#34;
+        Instantiates a function calling property object.
+
+        Parameters
+        ----------
+        name: str
+            Function calling property name.
+        descr_or_enum: Any
+            Description or enumerate property.
+        required: bool
+            Whether it&#39;s a required property.
+
+        References
+        ----------
+        .. [1] Function calling: https://platform.openai.com/docs/guides/gpt/function-calling
+        &#34;&#34;&#34;
+        super().__init__()
+
+        self.name = name
+        self.descr_or_enum = descr_or_enum
+        self.required = required
+
+    def __json__(self) -&gt; dict:
+        &#34;&#34;&#34;
+        Handle a JSON object.
+
+        Returns
+        -------
+        json_output: dict
+            Dictionary.
+        &#34;&#34;&#34;
+        if isinstance(self.descr_or_enum, list):
+            json_output = {
+                self.name: {
+                    &#39;type&#39;: &#34;string&#34;,
+                    &#39;enum&#39;: self.descr_or_enum
+                }
+            }
+        else:
+            json_output = {
+                self.name: {
+                    &#39;type&#39;: &#34;string&#34;,
+                    &#39;description&#39;: self.descr_or_enum
+                }
+            }
+
+        return json_output
+
+
+class FunctionCalling:
+    &#34;&#34;&#34;Function calling.&#34;&#34;&#34;
+
+    name: str
+    &#34;&#34;&#34;Function name.&#34;&#34;&#34;
+    description: str
+    &#34;&#34;&#34;Function description.&#34;&#34;&#34;
+    parameters: list
+    &#34;&#34;&#34;Function parameters.&#34;&#34;&#34;
+    function_callable: Callable
+    &#34;&#34;&#34;Function callable.&#34;&#34;&#34;
+    kwargs: dict
+    &#34;&#34;&#34;Keyword-based arguments.&#34;&#34;&#34;
+
+    def __init__(
+            self,
+            name: str,
+            description: str,
+            parameters: list = None,
+            function_callable: Callable = None,
+            kwargs: dict = None
+    ):
+        &#34;&#34;&#34;
+        Instantiates a function calling object.
+
+        Parameters
+        ----------
+        name: str
+            Function name.
+        description: str
+            Function description.
+        parameters: list
+            Function parameters.
+        function_callable: Callable
+            Function callable.
+        **kwargs: dict
+            Keyword-based arguments.
+
+        References
+        ----------
+        .. [1] Function calling: https://platform.openai.com/docs/guides/gpt/function-calling
+        &#34;&#34;&#34;
+        self.name = name
+        self.description = description
+        self.parameters = parameters if parameters is not None else []
+        self.function_callable = function_callable
+        self.kwargs = kwargs if kwargs else {}
+
+    def params(self) -&gt; [str]:
+        &#34;&#34;&#34;
+        Get keyword-based parameters from `parameters` attribute.
+
+        Returns
+        -------
+        arg_keys: [str]
+            List of keyword-based parameters names.
+        &#34;&#34;&#34;
+        arg_keys = [p.name for p in self.parameters]
+
+        return arg_keys
+
+    def __call__(self, **kwargs) -&gt; Callable:
+        &#34;&#34;&#34;
+        Call the function callable object using keyword-based parameters.
+
+        Parameters
+        ----------
+        **kwargs: dict
+            Keyword-based arguments to call function calling caller.
+
+        Returns
+        -------
+        function_call: Callable
+            Function call&#39;s call.
+        &#34;&#34;&#34;
+        function_call = self.function_callable(**kwargs)
+
+        return function_call
+
+    def __json__(self) -&gt; dict:
+        &#34;&#34;&#34;
+        Handle a JSON object.
+
+        Returns
+        -------
+        json_output: dict
+            Dictionary.
+        &#34;&#34;&#34;
+        json_output = {
+            &#39;name&#39;: self.name,
+            &#39;description&#39;: self.description,
+            &#39;parameters&#39;: {
+                &#39;type&#39;: &#34;object&#34;,
+                &#39;properties&#39;: functools.reduce(merge_dict, self.parameters),
+                &#39;required&#39;: [x.name for x in self.parameters if x.required]
+            }
+        }
+
+        return json_output
+
+
+class BotOpenAI(Bot):
+    &#34;&#34;&#34;
+    OpenAI GenAI bot.
+    &#34;&#34;&#34;
+
+    _api_type: str
+    &#34;&#34;&#34;OpenAI API type: &#39;azure&#39; or &#39;open_ai&#39;.&#34;&#34;&#34;
+    _api_key: str
+    &#34;&#34;&#34;OpenAI API key.&#34;&#34;&#34;
+    _api_base: str
+    &#34;&#34;&#34;OpenAI API endpoint.&#34;&#34;&#34;
+    _api_version: str
+    &#34;&#34;&#34;OpenAI API version.&#34;&#34;&#34;
+    _deployment_id: str
+    &#34;&#34;&#34;OpenAI API deployment ID, only required for &#39;azure&#39; API type.&#34;&#34;&#34;
+    _llm_name: str
+    &#34;&#34;&#34;LLM model name.&#34;&#34;&#34;
+    _temperature_llm: float
+    &#34;&#34;&#34;LLM model temperature: [0, 2].&#34;&#34;&#34;
+    _temperature_functions: float
+    &#34;&#34;&#34;LLM model temperature: [0, 2].&#34;&#34;&#34;
+    _prompt_functions: str
+    &#34;&#34;&#34;Prompt to identify user-reported search needs and attributes.&#34;&#34;&#34;
+    _openai_messages: [dict]
+    &#34;&#34;&#34;List of OpenAI messages from chat.&#34;&#34;&#34;
+    _openai_kwargs: dict
+    &#34;&#34;&#34;OpenAI API keyword-based arguments.&#34;&#34;&#34;
+    _openai_functions: [dict]
+    &#34;&#34;&#34;OpenAI keyword-based function calls, only required for &#39;BotOpenAIFC&#39; class.&#34;&#34;&#34;
+
+    def __init__(self):
+        &#34;&#34;&#34;
+        Instantiates an OpenAI GenAI bot object.
+
+        References
+        ----------
+        .. [1] OpenAI API Reference: https://platform.openai.com/docs/api-reference
+
+        .. [2] OpenAI Python Library: https://github.com/openai/openai-python
+        &#34;&#34;&#34;
+        super().__init__()
+
+        openai_settings = get_settings().get(&#39;openai&#39;)
+        self._api_type = openai_settings.get(&#39;api_type&#39;, &#34;open_ai&#34;)
+        self._api_key = openai_settings.get(&#39;api_key&#39;)
+        self._api_base = openai_settings.get(&#39;api_base&#39;, &#34;https://api.openai.com/v1/&#34;)
+        self._api_version = openai_settings.get(&#39;api_version&#39;, &#34;2023-07-01-preview&#34;)
+        self._deployment_id = openai_settings.get(&#39;deployment_id&#39;)
+        self._llm_name = openai_settings.get(&#39;llm_name&#39;, &#34;gpt-35-turbo&#34;)
+        self._temperature_llm = openai_settings.get(&#39;temperature_llm&#39;, 0.5)
+        self._temperature_functions = openai_settings.get(&#39;temperature_functions&#39;, 0.5)
+        self._openai_functions = []
+
+        # Setting up the OpenAI environment:
+        openai.api_type = self._api_type
+        openai.api_key = self._api_key
+        openai.api_base = self._api_base
+        openai.api_version = self._api_version
+
+        self._openai_kwargs = {&#39;deployment_id&#39;: self._deployment_id} if openai.api_type == &#34;azure&#34; else {}
+        self._openai_messages = [{&#34;role&#34;: &#34;system&#34;, &#34;content&#34;: self._prompt_behavior}]
+
+        # Approach to identify user-reported search needs and attributes:
+        self._prompt_functions = &#34;&#34;&#34;
+            You are an excellent music consultant, capable of deeply understanding clients&#39; preferences to provide 
+            personalized recommendations. Identify if the user is requesting a music recommendation, and if so, return a 
+            JSON containing the following attributes:
+            
+                - &#39;title&#39;: Music title;
+                - &#39;genre&#39;: Music genre;
+                - &#39;authors&#39;: Music authors;
+                - &#39;country&#39;: Music country;
+                - &#39;year&#39;: Music year.
+            
+            For attributes not identified in the user&#39;s message, you should use the value null in the JSON.
+            If the user has not requested a music recommendation, do not return anything. 
+            Do not invent information not provided by the user.
+            &#34;&#34;&#34;
+
+    def _get_llm_response(self, messages: [dict], temperature: float, **kwargs) -&gt; EngineAPIResource:
+        &#34;&#34;&#34;
+        Sends a request with a message to the OpenAI API service.
+
+        Parameters
+        ----------
+        messages: [dict]
+            List of messages.
+        temperature: float
+            LLM temperature.
+        **kwargs: dict
+            Keyword-based arguments.
+
+        Returns
+        -------
+        response: EngineAPIResource
+            Chat response from OpenAI API service.
+        &#34;&#34;&#34;
+        kwargs = merge_dict(kwargs, self._openai_kwargs)
+        response = openai.ChatCompletion.create(
+            model=self._llm_name,
+            temperature=temperature,
+            messages=messages,
+            **kwargs
+        )
+
+        return response
+
+    def chat(self, user_message: str, **kwargs) -&gt; (str, [dict]):
+        &#34;&#34;&#34;
+        Sends a user message and receives a bot response from a LLM.
+
+        Parameters
+        ----------
+        user_message: str
+            User message.
+        **kwargs: dict
+            Keyword-based arguments.
+
+        Returns
+        -------
+        bot_message, bot_citations: (str, [dict])
+            Bot message and list os citations.
+        &#34;&#34;&#34;
+        # TODO: add chat context handling.
+        logging.debug(&#34;Generating LLM bot response...&#34;)
+
+        user_message = user_message.replace(&#39;\&#39;&#39;, &#34;\&#34;&#34;)
+        bot_message, bot_citations = &#34;&#34;, []
+
+        try:
+            # Identifying user-reported search needs and attributes:
+            prompt = self._prompt_functions + f&#34;\nUser message: {user_message}&#34;
+            messages = [{&#34;role&#34;: &#34;system&#34;, &#34;content&#34;: prompt}]
+            response = self._get_llm_response(temperature=self._temperature_functions, messages=messages)
+            bot_message = response.choices[0].message.content
+            bot_message = &#34; &#34;.join(bot_message.replace(&#34;\n&#34;, &#34; &#34;).split())
+
+            try:
+                logging.debug(f&#34;User preferences: {bot_message}&#34;)
+                search_params = json.loads(bot_message)
+                music_recommendations = self.get_music_recommendations(**search_params)
+                self._citations_available = music_recommendations if music_recommendations else []
+            except Exception as e:
+                logging.warning(f&#34;Failed to fetch data via simple search: {e}&#34;)
+                pass
+
+            if self._citations_available:
+                # Workaround to couple LLM with external data without the need to retrain the model:
+                logging.debug(&#34;Injecting external data into LLM...&#34;)
+                citations_available_str = &#34;;\n\n&#34;.join([json.dumps(citation) for citation in self._citations_available])
+                user_message_prompt = f&#34;&#34;&#34;
+                    User message:
+                    &#39;{user_message}&#39;
+
+                    Available options:
+                    {citations_available_str}
+                    &#34;&#34;&#34;
+
+                self._openai_messages.append({&#34;role&#34;: &#34;user&#34;, &#34;content&#34;: user_message_prompt})
+                response = self._get_llm_response(temperature=self._temperature_llm, messages=self._openai_messages)
+
+                bot_message = response.choices[0].message.content
+                bot_citations = self._extract_citations(bot_message=bot_message)
+            else:
+                self._openai_messages.append({&#34;role&#34;: &#34;user&#34;, &#34;content&#34;: user_message})
+                response = self._get_llm_response(temperature=self._temperature_llm, messages=self._openai_messages)
+                bot_message = response.choices[0].message.content
+        except Exception as e:
+            bot_message = self._error_message_general
+            logging.error(e)
+            pass
+
+        # Handling with empty citations:
+        if self._filter_bot_messages_without_citations and &#34;\&#34;&#34; in bot_message and not bot_citations:
+            logging.warning(f&#34;No citation found on bot message: &#39;{bot_message}&#39;. Raising default error message.&#34;)
+            bot_message = self._error_message_bot_message_without_citations
+
+        self._openai_messages.append({&#34;role&#34;: &#34;assistant&#34;, &#34;content&#34;: bot_message})
+        bot_message = &#34; &#34;.join(bot_message.replace(&#34;\n&#34;, &#34; &#34;).split())
+
+        self._add_user_message(user_message=user_message)
+        self._add_assistant_message(assistant_message=bot_message, assistant_citations=bot_citations)
+
+        return bot_message, bot_citations
+
+
+class BotOpenAIFC(BotOpenAI):
+    &#34;&#34;&#34;
+    OpenAI GenAI bot (using function calling feature).
+    &#34;&#34;&#34;
+
+    _functions: dict
+    &#34;&#34;&#34;Function calls available in OpenAI.&#34;&#34;&#34;
+    _openai_functions: [dict]
+    &#34;&#34;&#34;OpenAI keyword-based function calls.&#34;&#34;&#34;
+
+    def __init__(self):
+        &#34;&#34;&#34;
+        Instantiates an OpenAI GenAI bot object (with function calling feature).
+
+        References
+        ----------
+        .. [1] OpenAI API Reference: https://platform.openai.com/docs/api-reference
+
+        .. [2] OpenAI Python Library: https://github.com/openai/openai-python
+
+        .. [3] Function calling: https://platform.openai.com/docs/guides/gpt/function-calling
+
+        .. [4] OpenAI models: https://stackoverflow.com/a/75397187/16109419
+        &#34;&#34;&#34;
+        super().__init__()
+
+        openai_settings = get_settings().get(&#39;openai&#39;)
+        self._llm_name = openai_settings.get(&#39;llm_fc_name&#39;, &#34;gpt-35-turbo-16k&#34;)
+        self._openai_functions = []
+
+        self._functions = {
+            &#34;get_music_recommendations&#34;: FunctionCalling(
+                name=&#34;get_music_recommendations&#34;,
+                description=&#34;&#34;&#34;
+                    Get music recommendations based on the following information provided by the user: 
+                    title, genre, authors, country, and/or year.
+                &#34;&#34;&#34;,
+                parameters=[
+                    FunctionCallingProperty(&#34;title&#34;, &#34;Music title&#34;),
+                    FunctionCallingProperty(&#34;genre&#34;, &#34;Music genre&#34;),
+                    FunctionCallingProperty(&#34;authors&#34;, &#34;Music authors&#34;),
+                    FunctionCallingProperty(&#34;country&#34;, &#34;Music country&#34;),
+                    FunctionCallingProperty(&#34;year&#34;, &#34;Music year&#34;)
+                ],
+                function_callable=self.get_music_recommendations
+            ),
+        }
+
+        for key, value in self._functions.items():
+            self._openai_functions.append(value.__json__())  # Converting objects to JSON dictionary.
+
+    def chat(self, user_message: str, **kwargs) -&gt; (str, [dict]):
+        &#34;&#34;&#34;
+        Sends a user message and receives a bot response from a LLM.
+
+        Parameters
+        ----------
+        user_message: str
+            User message.
+        **kwargs: dict
+            Keyword-based arguments.
+
+        Returns
+        -------
+        bot_message, bot_citations: (str, [dict])
+            Bot message and list os citations.
+        &#34;&#34;&#34;
+        # TODO: add chat context handling.
+        logging.debug(&#34;Generating LLM bot response...&#34;)
+
+        user_message = user_message.replace(&#39;\&#39;&#39;, &#34;\&#34;&#34;)
+        self._openai_messages.append({&#34;role&#34;: &#34;user&#34;, &#34;content&#34;: user_message})
+        function_call = kwargs.get(&#39;function_call&#39;, &#34;auto&#34;)
+        bot_message, bot_citations = &#34;&#34;, []
+
+        try:
+            # Processing user input message and searching for `function_calling` actions:
+            openai_kwargs = {&#34;functions&#34;: self._openai_functions}
+            response = self._get_llm_response(
+                temperature=self._temperature_functions,
+                messages=self._openai_messages,
+                **openai_kwargs
+            )
+
+            response_message = response.choices[0].message
+            function_call_obj = response_message.get(&#39;function_call&#39;)
+
+            # Handling with `function_calling` actions:
+            if self._openai_functions is not None and function_call == &#34;auto&#34; and function_call_obj:
+                function_name = function_call_obj.get(&#39;name&#39;)
+                function_args = json.loads(function_call_obj.get(&#39;arguments&#39;))
+                function_caller = self._functions.get(function_name)
+                function_kwargs = {k: function_args.get(k) for k in function_caller.params()}
+
+                logging.debug(f&#34;User preferences: {function_kwargs}&#34;)
+                function_response = function_caller(**function_kwargs)
+                self._citations_available = function_response
+                function_content = json.dumps(function_response)
+
+                # Coupling LLM with external data without the need to retrain the model:
+                logging.debug(&#34;Injecting external data into LLM...&#34;)
+                self._openai_messages.append({&#34;role&#34;: &#34;function&#34;, &#34;name&#34;: function_name, &#34;content&#34;: function_content})
+
+                response = self._get_llm_response(temperature=self._temperature_llm, messages=self._openai_messages)
+                bot_message = response.choices[0].message.content
+            else:
+                # No `function_calling` actions detected:
+                response = self._get_llm_response(temperature=self._temperature_llm, messages=self._openai_messages)
+                bot_message = response.choices[0].message.content
+
+            bot_citations = self._extract_citations(bot_message=bot_message)
+        except Exception as e:
+            bot_message = self._error_message_general
+            logging.error(e)
+            pass
+
+        # Handling with empty citations:
+        if self._filter_bot_messages_without_citations and &#34;\&#34;&#34; in bot_message and not bot_citations:
+            logging.warning(f&#34;No citation found on bot message: &#39;{bot_message}&#39;. Raising default error message.&#34;)
+            bot_message = self._error_message_bot_message_without_citations
+
+        self._openai_messages.append({&#34;role&#34;: &#34;assistant&#34;, &#34;content&#34;: bot_message})
+        bot_message = &#34; &#34;.join(bot_message.replace(&#34;\n&#34;, &#34; &#34;).split())
+
+        self._add_user_message(user_message=user_message)
+        self._add_assistant_message(assistant_message=bot_message, assistant_citations=bot_citations)
+
+        return bot_message, bot_citations</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="genai_chat.openai.FunctionCallingProperty"><code class="flex name class">
+<span>class <span class="ident">FunctionCallingProperty</span></span>
+<span>(</span><span>name: str, descr_or_enum: Any, required: bool = False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Function calling property.</p>
+<p>Instantiates a function calling property object.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>Function calling property name.</dd>
+<dt><strong><code>descr_or_enum</code></strong> :&ensp;<code>Any</code></dt>
+<dd>Description or enumerate property.</dd>
+<dt><strong><code>required</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether it's a required property.</dd>
+</dl>
+<h2 id="references">References</h2>
+<p>.. [1] Function calling: <a href="https://platform.openai.com/docs/guides/gpt/function-calling">https://platform.openai.com/docs/guides/gpt/function-calling</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class FunctionCallingProperty(json.JSONEncoder):
+    &#34;&#34;&#34;Function calling property.&#34;&#34;&#34;
+
+    name: str
+    &#34;&#34;&#34;Property name.&#34;&#34;&#34;
+    descr_or_enum: Any
+    &#34;&#34;&#34;Description or enumerate property.&#34;&#34;&#34;
+    required: bool
+    &#34;&#34;&#34;Whether it&#39;s a required property.&#34;&#34;&#34;
+
+    def __init__(self, name: str, descr_or_enum: Any, required: bool = False):
+        &#34;&#34;&#34;
+        Instantiates a function calling property object.
+
+        Parameters
+        ----------
+        name: str
+            Function calling property name.
+        descr_or_enum: Any
+            Description or enumerate property.
+        required: bool
+            Whether it&#39;s a required property.
+
+        References
+        ----------
+        .. [1] Function calling: https://platform.openai.com/docs/guides/gpt/function-calling
+        &#34;&#34;&#34;
+        super().__init__()
+
+        self.name = name
+        self.descr_or_enum = descr_or_enum
+        self.required = required
+
+    def __json__(self) -&gt; dict:
+        &#34;&#34;&#34;
+        Handle a JSON object.
+
+        Returns
+        -------
+        json_output: dict
+            Dictionary.
+        &#34;&#34;&#34;
+        if isinstance(self.descr_or_enum, list):
+            json_output = {
+                self.name: {
+                    &#39;type&#39;: &#34;string&#34;,
+                    &#39;enum&#39;: self.descr_or_enum
+                }
+            }
+        else:
+            json_output = {
+                self.name: {
+                    &#39;type&#39;: &#34;string&#34;,
+                    &#39;description&#39;: self.descr_or_enum
+                }
+            }
+
+        return json_output</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>json.encoder.JSONEncoder</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="genai_chat.openai.FunctionCallingProperty.name"><code class="name">var <span class="ident">name</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Property name.</p></div>
+</dd>
+<dt id="genai_chat.openai.FunctionCallingProperty.descr_or_enum"><code class="name">var <span class="ident">descr_or_enum</span> : Any</code></dt>
+<dd>
+<div class="desc"><p>Description or enumerate property.</p></div>
+</dd>
+<dt id="genai_chat.openai.FunctionCallingProperty.required"><code class="name">var <span class="ident">required</span> : bool</code></dt>
+<dd>
+<div class="desc"><p>Whether it's a required property.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="genai_chat.openai.FunctionCalling"><code class="flex name class">
+<span>class <span class="ident">FunctionCalling</span></span>
+<span>(</span><span>name: str, description: str, parameters: list = None, function_callable: Callable = None, kwargs: dict = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Function calling.</p>
+<p>Instantiates a function calling object.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>Function name.</dd>
+<dt><strong><code>description</code></strong> :&ensp;<code>str</code></dt>
+<dd>Function description.</dd>
+<dt><strong><code>parameters</code></strong> :&ensp;<code>list</code></dt>
+<dd>Function parameters.</dd>
+<dt><strong><code>function_callable</code></strong> :&ensp;<code>Callable</code></dt>
+<dd>Function callable.</dd>
+<dt><strong><code>**kwargs</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Keyword-based arguments.</dd>
+</dl>
+<h2 id="references">References</h2>
+<p>.. [1] Function calling: <a href="https://platform.openai.com/docs/guides/gpt/function-calling">https://platform.openai.com/docs/guides/gpt/function-calling</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class FunctionCalling:
+    &#34;&#34;&#34;Function calling.&#34;&#34;&#34;
+
+    name: str
+    &#34;&#34;&#34;Function name.&#34;&#34;&#34;
+    description: str
+    &#34;&#34;&#34;Function description.&#34;&#34;&#34;
+    parameters: list
+    &#34;&#34;&#34;Function parameters.&#34;&#34;&#34;
+    function_callable: Callable
+    &#34;&#34;&#34;Function callable.&#34;&#34;&#34;
+    kwargs: dict
+    &#34;&#34;&#34;Keyword-based arguments.&#34;&#34;&#34;
+
+    def __init__(
+            self,
+            name: str,
+            description: str,
+            parameters: list = None,
+            function_callable: Callable = None,
+            kwargs: dict = None
+    ):
+        &#34;&#34;&#34;
+        Instantiates a function calling object.
+
+        Parameters
+        ----------
+        name: str
+            Function name.
+        description: str
+            Function description.
+        parameters: list
+            Function parameters.
+        function_callable: Callable
+            Function callable.
+        **kwargs: dict
+            Keyword-based arguments.
+
+        References
+        ----------
+        .. [1] Function calling: https://platform.openai.com/docs/guides/gpt/function-calling
+        &#34;&#34;&#34;
+        self.name = name
+        self.description = description
+        self.parameters = parameters if parameters is not None else []
+        self.function_callable = function_callable
+        self.kwargs = kwargs if kwargs else {}
+
+    def params(self) -&gt; [str]:
+        &#34;&#34;&#34;
+        Get keyword-based parameters from `parameters` attribute.
+
+        Returns
+        -------
+        arg_keys: [str]
+            List of keyword-based parameters names.
+        &#34;&#34;&#34;
+        arg_keys = [p.name for p in self.parameters]
+
+        return arg_keys
+
+    def __call__(self, **kwargs) -&gt; Callable:
+        &#34;&#34;&#34;
+        Call the function callable object using keyword-based parameters.
+
+        Parameters
+        ----------
+        **kwargs: dict
+            Keyword-based arguments to call function calling caller.
+
+        Returns
+        -------
+        function_call: Callable
+            Function call&#39;s call.
+        &#34;&#34;&#34;
+        function_call = self.function_callable(**kwargs)
+
+        return function_call
+
+    def __json__(self) -&gt; dict:
+        &#34;&#34;&#34;
+        Handle a JSON object.
+
+        Returns
+        -------
+        json_output: dict
+            Dictionary.
+        &#34;&#34;&#34;
+        json_output = {
+            &#39;name&#39;: self.name,
+            &#39;description&#39;: self.description,
+            &#39;parameters&#39;: {
+                &#39;type&#39;: &#34;object&#34;,
+                &#39;properties&#39;: functools.reduce(merge_dict, self.parameters),
+                &#39;required&#39;: [x.name for x in self.parameters if x.required]
+            }
+        }
+
+        return json_output</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="genai_chat.openai.FunctionCalling.name"><code class="name">var <span class="ident">name</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Function name.</p></div>
+</dd>
+<dt id="genai_chat.openai.FunctionCalling.description"><code class="name">var <span class="ident">description</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Function description.</p></div>
+</dd>
+<dt id="genai_chat.openai.FunctionCalling.parameters"><code class="name">var <span class="ident">parameters</span> : list</code></dt>
+<dd>
+<div class="desc"><p>Function parameters.</p></div>
+</dd>
+<dt id="genai_chat.openai.FunctionCalling.function_callable"><code class="name">var <span class="ident">function_callable</span> : Callable</code></dt>
+<dd>
+<div class="desc"><p>Function callable.</p></div>
+</dd>
+<dt id="genai_chat.openai.FunctionCalling.kwargs"><code class="name">var <span class="ident">kwargs</span> : dict</code></dt>
+<dd>
+<div class="desc"><p>Keyword-based arguments.</p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="genai_chat.openai.FunctionCalling.params"><code class="name flex">
+<span>def <span class="ident">params</span></span>(<span>self) ‑> [<class 'str'>]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get keyword-based parameters from <code>parameters</code> attribute.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>arg_keys</code></strong> :&ensp;<code>[str]</code></dt>
+<dd>List of keyword-based parameters names.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def params(self) -&gt; [str]:
+    &#34;&#34;&#34;
+    Get keyword-based parameters from `parameters` attribute.
+
+    Returns
+    -------
+    arg_keys: [str]
+        List of keyword-based parameters names.
+    &#34;&#34;&#34;
+    arg_keys = [p.name for p in self.parameters]
+
+    return arg_keys</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="genai_chat.openai.BotOpenAI"><code class="flex name class">
+<span>class <span class="ident">BotOpenAI</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>OpenAI GenAI bot.</p>
+<p>Instantiates an OpenAI GenAI bot object.</p>
+<h2 id="references">References</h2>
+<p>.. [1] OpenAI API Reference: <a href="https://platform.openai.com/docs/api-reference">https://platform.openai.com/docs/api-reference</a></p>
+<p>.. [2] OpenAI Python Library: <a href="https://github.com/openai/openai-python">https://github.com/openai/openai-python</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class BotOpenAI(Bot):
+    &#34;&#34;&#34;
+    OpenAI GenAI bot.
+    &#34;&#34;&#34;
+
+    _api_type: str
+    &#34;&#34;&#34;OpenAI API type: &#39;azure&#39; or &#39;open_ai&#39;.&#34;&#34;&#34;
+    _api_key: str
+    &#34;&#34;&#34;OpenAI API key.&#34;&#34;&#34;
+    _api_base: str
+    &#34;&#34;&#34;OpenAI API endpoint.&#34;&#34;&#34;
+    _api_version: str
+    &#34;&#34;&#34;OpenAI API version.&#34;&#34;&#34;
+    _deployment_id: str
+    &#34;&#34;&#34;OpenAI API deployment ID, only required for &#39;azure&#39; API type.&#34;&#34;&#34;
+    _llm_name: str
+    &#34;&#34;&#34;LLM model name.&#34;&#34;&#34;
+    _temperature_llm: float
+    &#34;&#34;&#34;LLM model temperature: [0, 2].&#34;&#34;&#34;
+    _temperature_functions: float
+    &#34;&#34;&#34;LLM model temperature: [0, 2].&#34;&#34;&#34;
+    _prompt_functions: str
+    &#34;&#34;&#34;Prompt to identify user-reported search needs and attributes.&#34;&#34;&#34;
+    _openai_messages: [dict]
+    &#34;&#34;&#34;List of OpenAI messages from chat.&#34;&#34;&#34;
+    _openai_kwargs: dict
+    &#34;&#34;&#34;OpenAI API keyword-based arguments.&#34;&#34;&#34;
+    _openai_functions: [dict]
+    &#34;&#34;&#34;OpenAI keyword-based function calls, only required for &#39;BotOpenAIFC&#39; class.&#34;&#34;&#34;
+
+    def __init__(self):
+        &#34;&#34;&#34;
+        Instantiates an OpenAI GenAI bot object.
+
+        References
+        ----------
+        .. [1] OpenAI API Reference: https://platform.openai.com/docs/api-reference
+
+        .. [2] OpenAI Python Library: https://github.com/openai/openai-python
+        &#34;&#34;&#34;
+        super().__init__()
+
+        openai_settings = get_settings().get(&#39;openai&#39;)
+        self._api_type = openai_settings.get(&#39;api_type&#39;, &#34;open_ai&#34;)
+        self._api_key = openai_settings.get(&#39;api_key&#39;)
+        self._api_base = openai_settings.get(&#39;api_base&#39;, &#34;https://api.openai.com/v1/&#34;)
+        self._api_version = openai_settings.get(&#39;api_version&#39;, &#34;2023-07-01-preview&#34;)
+        self._deployment_id = openai_settings.get(&#39;deployment_id&#39;)
+        self._llm_name = openai_settings.get(&#39;llm_name&#39;, &#34;gpt-35-turbo&#34;)
+        self._temperature_llm = openai_settings.get(&#39;temperature_llm&#39;, 0.5)
+        self._temperature_functions = openai_settings.get(&#39;temperature_functions&#39;, 0.5)
+        self._openai_functions = []
+
+        # Setting up the OpenAI environment:
+        openai.api_type = self._api_type
+        openai.api_key = self._api_key
+        openai.api_base = self._api_base
+        openai.api_version = self._api_version
+
+        self._openai_kwargs = {&#39;deployment_id&#39;: self._deployment_id} if openai.api_type == &#34;azure&#34; else {}
+        self._openai_messages = [{&#34;role&#34;: &#34;system&#34;, &#34;content&#34;: self._prompt_behavior}]
+
+        # Approach to identify user-reported search needs and attributes:
+        self._prompt_functions = &#34;&#34;&#34;
+            You are an excellent music consultant, capable of deeply understanding clients&#39; preferences to provide 
+            personalized recommendations. Identify if the user is requesting a music recommendation, and if so, return a 
+            JSON containing the following attributes:
+            
+                - &#39;title&#39;: Music title;
+                - &#39;genre&#39;: Music genre;
+                - &#39;authors&#39;: Music authors;
+                - &#39;country&#39;: Music country;
+                - &#39;year&#39;: Music year.
+            
+            For attributes not identified in the user&#39;s message, you should use the value null in the JSON.
+            If the user has not requested a music recommendation, do not return anything. 
+            Do not invent information not provided by the user.
+            &#34;&#34;&#34;
+
+    def _get_llm_response(self, messages: [dict], temperature: float, **kwargs) -&gt; EngineAPIResource:
+        &#34;&#34;&#34;
+        Sends a request with a message to the OpenAI API service.
+
+        Parameters
+        ----------
+        messages: [dict]
+            List of messages.
+        temperature: float
+            LLM temperature.
+        **kwargs: dict
+            Keyword-based arguments.
+
+        Returns
+        -------
+        response: EngineAPIResource
+            Chat response from OpenAI API service.
+        &#34;&#34;&#34;
+        kwargs = merge_dict(kwargs, self._openai_kwargs)
+        response = openai.ChatCompletion.create(
+            model=self._llm_name,
+            temperature=temperature,
+            messages=messages,
+            **kwargs
+        )
+
+        return response
+
+    def chat(self, user_message: str, **kwargs) -&gt; (str, [dict]):
+        &#34;&#34;&#34;
+        Sends a user message and receives a bot response from a LLM.
+
+        Parameters
+        ----------
+        user_message: str
+            User message.
+        **kwargs: dict
+            Keyword-based arguments.
+
+        Returns
+        -------
+        bot_message, bot_citations: (str, [dict])
+            Bot message and list os citations.
+        &#34;&#34;&#34;
+        # TODO: add chat context handling.
+        logging.debug(&#34;Generating LLM bot response...&#34;)
+
+        user_message = user_message.replace(&#39;\&#39;&#39;, &#34;\&#34;&#34;)
+        bot_message, bot_citations = &#34;&#34;, []
+
+        try:
+            # Identifying user-reported search needs and attributes:
+            prompt = self._prompt_functions + f&#34;\nUser message: {user_message}&#34;
+            messages = [{&#34;role&#34;: &#34;system&#34;, &#34;content&#34;: prompt}]
+            response = self._get_llm_response(temperature=self._temperature_functions, messages=messages)
+            bot_message = response.choices[0].message.content
+            bot_message = &#34; &#34;.join(bot_message.replace(&#34;\n&#34;, &#34; &#34;).split())
+
+            try:
+                logging.debug(f&#34;User preferences: {bot_message}&#34;)
+                search_params = json.loads(bot_message)
+                music_recommendations = self.get_music_recommendations(**search_params)
+                self._citations_available = music_recommendations if music_recommendations else []
+            except Exception as e:
+                logging.warning(f&#34;Failed to fetch data via simple search: {e}&#34;)
+                pass
+
+            if self._citations_available:
+                # Workaround to couple LLM with external data without the need to retrain the model:
+                logging.debug(&#34;Injecting external data into LLM...&#34;)
+                citations_available_str = &#34;;\n\n&#34;.join([json.dumps(citation) for citation in self._citations_available])
+                user_message_prompt = f&#34;&#34;&#34;
+                    User message:
+                    &#39;{user_message}&#39;
+
+                    Available options:
+                    {citations_available_str}
+                    &#34;&#34;&#34;
+
+                self._openai_messages.append({&#34;role&#34;: &#34;user&#34;, &#34;content&#34;: user_message_prompt})
+                response = self._get_llm_response(temperature=self._temperature_llm, messages=self._openai_messages)
+
+                bot_message = response.choices[0].message.content
+                bot_citations = self._extract_citations(bot_message=bot_message)
+            else:
+                self._openai_messages.append({&#34;role&#34;: &#34;user&#34;, &#34;content&#34;: user_message})
+                response = self._get_llm_response(temperature=self._temperature_llm, messages=self._openai_messages)
+                bot_message = response.choices[0].message.content
+        except Exception as e:
+            bot_message = self._error_message_general
+            logging.error(e)
+            pass
+
+        # Handling with empty citations:
+        if self._filter_bot_messages_without_citations and &#34;\&#34;&#34; in bot_message and not bot_citations:
+            logging.warning(f&#34;No citation found on bot message: &#39;{bot_message}&#39;. Raising default error message.&#34;)
+            bot_message = self._error_message_bot_message_without_citations
+
+        self._openai_messages.append({&#34;role&#34;: &#34;assistant&#34;, &#34;content&#34;: bot_message})
+        bot_message = &#34; &#34;.join(bot_message.replace(&#34;\n&#34;, &#34; &#34;).split())
+
+        self._add_user_message(user_message=user_message)
+        self._add_assistant_message(assistant_message=bot_message, assistant_citations=bot_citations)
+
+        return bot_message, bot_citations</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="genai_chat.core.Bot" href="core.html#genai_chat.core.Bot">Bot</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="genai_chat.openai.BotOpenAIFC" href="#genai_chat.openai.BotOpenAIFC">BotOpenAIFC</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="genai_chat.openai.BotOpenAI.chat"><code class="name flex">
+<span>def <span class="ident">chat</span></span>(<span>self, user_message: str, **kwargs) ‑> (<class 'str'>, [<class 'dict'>])</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Sends a user message and receives a bot response from a LLM.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>user_message</code></strong> :&ensp;<code>str</code></dt>
+<dd>User message.</dd>
+<dt><strong><code>**kwargs</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Keyword-based arguments.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>bot_message</code></strong>, <strong><code>bot_citations</code></strong> :&ensp;<code>(str, [dict])</code></dt>
+<dd>Bot message and list os citations.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def chat(self, user_message: str, **kwargs) -&gt; (str, [dict]):
+    &#34;&#34;&#34;
+    Sends a user message and receives a bot response from a LLM.
+
+    Parameters
+    ----------
+    user_message: str
+        User message.
+    **kwargs: dict
+        Keyword-based arguments.
+
+    Returns
+    -------
+    bot_message, bot_citations: (str, [dict])
+        Bot message and list os citations.
+    &#34;&#34;&#34;
+    # TODO: add chat context handling.
+    logging.debug(&#34;Generating LLM bot response...&#34;)
+
+    user_message = user_message.replace(&#39;\&#39;&#39;, &#34;\&#34;&#34;)
+    bot_message, bot_citations = &#34;&#34;, []
+
+    try:
+        # Identifying user-reported search needs and attributes:
+        prompt = self._prompt_functions + f&#34;\nUser message: {user_message}&#34;
+        messages = [{&#34;role&#34;: &#34;system&#34;, &#34;content&#34;: prompt}]
+        response = self._get_llm_response(temperature=self._temperature_functions, messages=messages)
+        bot_message = response.choices[0].message.content
+        bot_message = &#34; &#34;.join(bot_message.replace(&#34;\n&#34;, &#34; &#34;).split())
+
+        try:
+            logging.debug(f&#34;User preferences: {bot_message}&#34;)
+            search_params = json.loads(bot_message)
+            music_recommendations = self.get_music_recommendations(**search_params)
+            self._citations_available = music_recommendations if music_recommendations else []
+        except Exception as e:
+            logging.warning(f&#34;Failed to fetch data via simple search: {e}&#34;)
+            pass
+
+        if self._citations_available:
+            # Workaround to couple LLM with external data without the need to retrain the model:
+            logging.debug(&#34;Injecting external data into LLM...&#34;)
+            citations_available_str = &#34;;\n\n&#34;.join([json.dumps(citation) for citation in self._citations_available])
+            user_message_prompt = f&#34;&#34;&#34;
+                User message:
+                &#39;{user_message}&#39;
+
+                Available options:
+                {citations_available_str}
+                &#34;&#34;&#34;
+
+            self._openai_messages.append({&#34;role&#34;: &#34;user&#34;, &#34;content&#34;: user_message_prompt})
+            response = self._get_llm_response(temperature=self._temperature_llm, messages=self._openai_messages)
+
+            bot_message = response.choices[0].message.content
+            bot_citations = self._extract_citations(bot_message=bot_message)
+        else:
+            self._openai_messages.append({&#34;role&#34;: &#34;user&#34;, &#34;content&#34;: user_message})
+            response = self._get_llm_response(temperature=self._temperature_llm, messages=self._openai_messages)
+            bot_message = response.choices[0].message.content
+    except Exception as e:
+        bot_message = self._error_message_general
+        logging.error(e)
+        pass
+
+    # Handling with empty citations:
+    if self._filter_bot_messages_without_citations and &#34;\&#34;&#34; in bot_message and not bot_citations:
+        logging.warning(f&#34;No citation found on bot message: &#39;{bot_message}&#39;. Raising default error message.&#34;)
+        bot_message = self._error_message_bot_message_without_citations
+
+    self._openai_messages.append({&#34;role&#34;: &#34;assistant&#34;, &#34;content&#34;: bot_message})
+    bot_message = &#34; &#34;.join(bot_message.replace(&#34;\n&#34;, &#34; &#34;).split())
+
+    self._add_user_message(user_message=user_message)
+    self._add_assistant_message(assistant_message=bot_message, assistant_citations=bot_citations)
+
+    return bot_message, bot_citations</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="genai_chat.core.Bot" href="core.html#genai_chat.core.Bot">Bot</a></b></code>:
+<ul class="hlist">
+<li><code><a title="genai_chat.core.Bot.get_chat_history" href="core.html#genai_chat.core.Bot.get_chat_history">get_chat_history</a></code></li>
+<li><code><a title="genai_chat.core.Bot.get_music_recommendations" href="core.html#genai_chat.core.Bot.get_music_recommendations">get_music_recommendations</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="genai_chat.openai.BotOpenAIFC"><code class="flex name class">
+<span>class <span class="ident">BotOpenAIFC</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>OpenAI GenAI bot (using function calling feature).</p>
+<p>Instantiates an OpenAI GenAI bot object (with function calling feature).</p>
+<h2 id="references">References</h2>
+<p>.. [1] OpenAI API Reference: <a href="https://platform.openai.com/docs/api-reference">https://platform.openai.com/docs/api-reference</a></p>
+<p>.. [2] OpenAI Python Library: <a href="https://github.com/openai/openai-python">https://github.com/openai/openai-python</a></p>
+<p>.. [3] Function calling: <a href="https://platform.openai.com/docs/guides/gpt/function-calling">https://platform.openai.com/docs/guides/gpt/function-calling</a></p>
+<p>.. [4] OpenAI models: <a href="https://stackoverflow.com/a/75397187/16109419">https://stackoverflow.com/a/75397187/16109419</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class BotOpenAIFC(BotOpenAI):
+    &#34;&#34;&#34;
+    OpenAI GenAI bot (using function calling feature).
+    &#34;&#34;&#34;
+
+    _functions: dict
+    &#34;&#34;&#34;Function calls available in OpenAI.&#34;&#34;&#34;
+    _openai_functions: [dict]
+    &#34;&#34;&#34;OpenAI keyword-based function calls.&#34;&#34;&#34;
+
+    def __init__(self):
+        &#34;&#34;&#34;
+        Instantiates an OpenAI GenAI bot object (with function calling feature).
+
+        References
+        ----------
+        .. [1] OpenAI API Reference: https://platform.openai.com/docs/api-reference
+
+        .. [2] OpenAI Python Library: https://github.com/openai/openai-python
+
+        .. [3] Function calling: https://platform.openai.com/docs/guides/gpt/function-calling
+
+        .. [4] OpenAI models: https://stackoverflow.com/a/75397187/16109419
+        &#34;&#34;&#34;
+        super().__init__()
+
+        openai_settings = get_settings().get(&#39;openai&#39;)
+        self._llm_name = openai_settings.get(&#39;llm_fc_name&#39;, &#34;gpt-35-turbo-16k&#34;)
+        self._openai_functions = []
+
+        self._functions = {
+            &#34;get_music_recommendations&#34;: FunctionCalling(
+                name=&#34;get_music_recommendations&#34;,
+                description=&#34;&#34;&#34;
+                    Get music recommendations based on the following information provided by the user: 
+                    title, genre, authors, country, and/or year.
+                &#34;&#34;&#34;,
+                parameters=[
+                    FunctionCallingProperty(&#34;title&#34;, &#34;Music title&#34;),
+                    FunctionCallingProperty(&#34;genre&#34;, &#34;Music genre&#34;),
+                    FunctionCallingProperty(&#34;authors&#34;, &#34;Music authors&#34;),
+                    FunctionCallingProperty(&#34;country&#34;, &#34;Music country&#34;),
+                    FunctionCallingProperty(&#34;year&#34;, &#34;Music year&#34;)
+                ],
+                function_callable=self.get_music_recommendations
+            ),
+        }
+
+        for key, value in self._functions.items():
+            self._openai_functions.append(value.__json__())  # Converting objects to JSON dictionary.
+
+    def chat(self, user_message: str, **kwargs) -&gt; (str, [dict]):
+        &#34;&#34;&#34;
+        Sends a user message and receives a bot response from a LLM.
+
+        Parameters
+        ----------
+        user_message: str
+            User message.
+        **kwargs: dict
+            Keyword-based arguments.
+
+        Returns
+        -------
+        bot_message, bot_citations: (str, [dict])
+            Bot message and list os citations.
+        &#34;&#34;&#34;
+        # TODO: add chat context handling.
+        logging.debug(&#34;Generating LLM bot response...&#34;)
+
+        user_message = user_message.replace(&#39;\&#39;&#39;, &#34;\&#34;&#34;)
+        self._openai_messages.append({&#34;role&#34;: &#34;user&#34;, &#34;content&#34;: user_message})
+        function_call = kwargs.get(&#39;function_call&#39;, &#34;auto&#34;)
+        bot_message, bot_citations = &#34;&#34;, []
+
+        try:
+            # Processing user input message and searching for `function_calling` actions:
+            openai_kwargs = {&#34;functions&#34;: self._openai_functions}
+            response = self._get_llm_response(
+                temperature=self._temperature_functions,
+                messages=self._openai_messages,
+                **openai_kwargs
+            )
+
+            response_message = response.choices[0].message
+            function_call_obj = response_message.get(&#39;function_call&#39;)
+
+            # Handling with `function_calling` actions:
+            if self._openai_functions is not None and function_call == &#34;auto&#34; and function_call_obj:
+                function_name = function_call_obj.get(&#39;name&#39;)
+                function_args = json.loads(function_call_obj.get(&#39;arguments&#39;))
+                function_caller = self._functions.get(function_name)
+                function_kwargs = {k: function_args.get(k) for k in function_caller.params()}
+
+                logging.debug(f&#34;User preferences: {function_kwargs}&#34;)
+                function_response = function_caller(**function_kwargs)
+                self._citations_available = function_response
+                function_content = json.dumps(function_response)
+
+                # Coupling LLM with external data without the need to retrain the model:
+                logging.debug(&#34;Injecting external data into LLM...&#34;)
+                self._openai_messages.append({&#34;role&#34;: &#34;function&#34;, &#34;name&#34;: function_name, &#34;content&#34;: function_content})
+
+                response = self._get_llm_response(temperature=self._temperature_llm, messages=self._openai_messages)
+                bot_message = response.choices[0].message.content
+            else:
+                # No `function_calling` actions detected:
+                response = self._get_llm_response(temperature=self._temperature_llm, messages=self._openai_messages)
+                bot_message = response.choices[0].message.content
+
+            bot_citations = self._extract_citations(bot_message=bot_message)
+        except Exception as e:
+            bot_message = self._error_message_general
+            logging.error(e)
+            pass
+
+        # Handling with empty citations:
+        if self._filter_bot_messages_without_citations and &#34;\&#34;&#34; in bot_message and not bot_citations:
+            logging.warning(f&#34;No citation found on bot message: &#39;{bot_message}&#39;. Raising default error message.&#34;)
+            bot_message = self._error_message_bot_message_without_citations
+
+        self._openai_messages.append({&#34;role&#34;: &#34;assistant&#34;, &#34;content&#34;: bot_message})
+        bot_message = &#34; &#34;.join(bot_message.replace(&#34;\n&#34;, &#34; &#34;).split())
+
+        self._add_user_message(user_message=user_message)
+        self._add_assistant_message(assistant_message=bot_message, assistant_citations=bot_citations)
+
+        return bot_message, bot_citations</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="genai_chat.openai.BotOpenAI" href="#genai_chat.openai.BotOpenAI">BotOpenAI</a></li>
+<li><a title="genai_chat.core.Bot" href="core.html#genai_chat.core.Bot">Bot</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="genai_chat.openai.BotOpenAI" href="#genai_chat.openai.BotOpenAI">BotOpenAI</a></b></code>:
+<ul class="hlist">
+<li><code><a title="genai_chat.openai.BotOpenAI.chat" href="#genai_chat.openai.BotOpenAI.chat">chat</a></code></li>
+<li><code><a title="genai_chat.openai.BotOpenAI.get_chat_history" href="core.html#genai_chat.core.Bot.get_chat_history">get_chat_history</a></code></li>
+<li><code><a title="genai_chat.openai.BotOpenAI.get_music_recommendations" href="core.html#genai_chat.core.Bot.get_music_recommendations">get_music_recommendations</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<form>
+<input id="lunr-search" name="q" placeholder="🔎 Search ..." aria-label="Search"
+disabled minlength="2">
+</form>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.15.3/tingle.min.css" integrity="sha512-j1u8eUJ4f23xPPxwOrLUPQaCD2dwzNqqmDDcWS4deWsMv2ohLqmXXuP3hU7g8TyzbMSakP/mMqoNBYWj8AEIFg==" crossorigin>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.15.3/tingle.min.js" integrity="sha512-plGUER9JkeEWPPqQBE4sdLqBoQug5Ap+BCGMc7bJ8BXkm+VVj6QzkpBz5Yv2yPkkq+cqg9IpkBaGCas6uDbW8g==" crossorigin></script>
+<style>
+.modal-dialog iframe {
+width: 100vw;
+height: calc(100vh - 80px);
+}
+@media screen and (min-width: 700px) {
+.modal-dialog iframe {
+width: 70vw;
+height: 80vh;
+}
+}
+.modal-dialog .tingle-modal-box {width: auto;}
+.modal-dialog .tingle-modal-box__content {padding: 0;}
+</style>
+<script>
+const input = document.getElementById('lunr-search');
+input.disabled = false;
+input.form.addEventListener('submit', (ev) => {
+ev.preventDefault();
+const url = new URL(window.location);
+url.searchParams.set('q', input.value);
+history.replaceState({}, null, url.toString());
+search(input.value);
+});
+const query = new URL(window.location).searchParams.get('q');
+if (query)
+search(query);
+function search(query) {
+const url = '../doc-search.html#' + encodeURIComponent(query);
+new tingle.modal({
+cssClass: ['modal-dialog'],
+onClose: () => {
+const url = new URL(window.location);
+url.searchParams.delete('q');
+history.replaceState({}, null, url.toString());
+setTimeout(() => input.focus(), 100);
+}
+}).setContent('<iframe src="' + url + '"></iframe>').open();
+}
+</script>
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="genai_chat" href="index.html">genai_chat</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="genai_chat.openai.FunctionCallingProperty" href="#genai_chat.openai.FunctionCallingProperty">FunctionCallingProperty</a></code></h4>
+<ul class="">
+<li><code><a title="genai_chat.openai.FunctionCallingProperty.name" href="#genai_chat.openai.FunctionCallingProperty.name">name</a></code></li>
+<li><code><a title="genai_chat.openai.FunctionCallingProperty.descr_or_enum" href="#genai_chat.openai.FunctionCallingProperty.descr_or_enum">descr_or_enum</a></code></li>
+<li><code><a title="genai_chat.openai.FunctionCallingProperty.required" href="#genai_chat.openai.FunctionCallingProperty.required">required</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="genai_chat.openai.FunctionCalling" href="#genai_chat.openai.FunctionCalling">FunctionCalling</a></code></h4>
+<ul class="two-column">
+<li><code><a title="genai_chat.openai.FunctionCalling.params" href="#genai_chat.openai.FunctionCalling.params">params</a></code></li>
+<li><code><a title="genai_chat.openai.FunctionCalling.name" href="#genai_chat.openai.FunctionCalling.name">name</a></code></li>
+<li><code><a title="genai_chat.openai.FunctionCalling.description" href="#genai_chat.openai.FunctionCalling.description">description</a></code></li>
+<li><code><a title="genai_chat.openai.FunctionCalling.parameters" href="#genai_chat.openai.FunctionCalling.parameters">parameters</a></code></li>
+<li><code><a title="genai_chat.openai.FunctionCalling.function_callable" href="#genai_chat.openai.FunctionCalling.function_callable">function_callable</a></code></li>
+<li><code><a title="genai_chat.openai.FunctionCalling.kwargs" href="#genai_chat.openai.FunctionCalling.kwargs">kwargs</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="genai_chat.openai.BotOpenAI" href="#genai_chat.openai.BotOpenAI">BotOpenAI</a></code></h4>
+<ul class="">
+<li><code><a title="genai_chat.openai.BotOpenAI.chat" href="#genai_chat.openai.BotOpenAI.chat">chat</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="genai_chat.openai.BotOpenAIFC" href="#genai_chat.openai.BotOpenAIFC">BotOpenAIFC</a></code></h4>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,482 @@
+[
+    {
+        "id": 789012,
+        "title": "Aquarela do Brasil",
+        "genre": "Samba",
+        "authors": "Ary Barroso",
+        "country": "Brazil",
+        "year": 1939
+    },
+    {
+        "id": 345678,
+        "title": "Garota de Ipanema",
+        "genre": "Samba",
+        "authors": "Vinicius de Moraes, Tom Jobim",
+        "country": "Brazil",
+        "year": 1962
+    },
+    {
+        "id": 901234,
+        "title": "Canta, Canta Minha Gente",
+        "genre": "Samba",
+        "authors": "Martinho da Vila",
+        "country": "Brazil",
+        "year": 1974
+    },
+    {
+        "id": 567890,
+        "title": "A Voz do Morro",
+        "genre": "Samba",
+        "authors": "Zé Keti",
+        "country": "Brazil",
+        "year": 1955
+    },
+    {
+        "id": 123456,
+        "title": "Eu Sambo Mesmo",
+        "genre": "Samba",
+        "authors": "Ataulfo Alves",
+        "country": "Brazil",
+        "year": 1940
+    },
+    {
+        "id": 234567,
+        "title": "Straight Outta Compton",
+        "genre": "Hip-Hop",
+        "authors": "N.W.A",
+        "country": "USA",
+        "year": 1988
+    },
+    {
+        "id": 345678,
+        "title": "Illmatic",
+        "genre": "Hip-Hop",
+        "authors": "Nas",
+        "country": "USA",
+        "year": 1994
+    },
+    {
+        "id": 456789,
+        "title": "The Miseducation of Lauryn Hill",
+        "genre": "Hip-Hop",
+        "authors": "Lauryn Hill",
+        "country": "USA",
+        "year": 1998
+    },
+    {
+        "id": 567890,
+        "title": "Sobrevivendo no Inferno",
+        "genre": "Hip-Hop",
+        "authors": "Racionais MC's",
+        "country": "Brazil",
+        "year": 1997
+    },
+    {
+        "id": 678901,
+        "title": "The Marshall Mathers LP",
+        "genre": "Hip-Hop",
+        "authors": "Eminem",
+        "country": "USA",
+        "year": 2000
+    },
+    {
+        "id": 123456,
+        "title": "Stairway to Heaven",
+        "genre": "Rock",
+        "authors": "Led Zeppelin",
+        "country": "United Kingdom",
+        "year": 1971
+    },
+    {
+        "id": 234567,
+        "title": "Bohemian Rhapsody",
+        "genre": "Rock",
+        "authors": "Queen",
+        "country": "United Kingdom",
+        "year": 1975
+    },
+    {
+        "id": 345678,
+        "title": "Back in Black",
+        "genre": "Rock",
+        "authors": "AC/DC",
+        "country": "Australia",
+        "year": 1980
+    },
+    {
+        "id": 456789,
+        "title": "Pais e Filhos",
+        "genre": "Rock",
+        "authors": "Legião Urbana",
+        "country": "Brazil",
+        "year": 1989
+    },
+    {
+        "id": 567890,
+        "title": "Hotel California",
+        "genre": "Rock",
+        "authors": "Eagles",
+        "country": "USA",
+        "year": 1976
+    },
+    {
+        "id": 123456,
+        "title": "Águas de Março",
+        "genre": "MPB",
+        "authors": "Tom Jobim",
+        "country": "Brazil",
+        "year": 1972
+    },
+    {
+        "id": 234567,
+        "title": "Construção",
+        "genre": "MPB",
+        "authors": "Chico Buarque",
+        "country": "Brazil",
+        "year": 1971
+    },
+    {
+        "id": 345678,
+        "title": "Chega de Saudade",
+        "genre": "MPB",
+        "authors": "Tom Jobim, Vinicius de Moraes",
+        "country": "Brazil",
+        "year": 1959
+    },
+    {
+        "id": 456789,
+        "title": "Aquarela",
+        "genre": "MPB",
+        "authors": "Toquinho, Vinicius de Moraes",
+        "country": "Brazil",
+        "year": 1983
+    },
+    {
+        "id": 567890,
+        "title": "Tropicália",
+        "genre": "MPB",
+        "authors": "Caetano Veloso",
+        "country": "Brazil",
+        "year": 1968
+    },
+    {
+        "id": 123456,
+        "title": "Cilada",
+        "genre": "Pagode",
+        "authors": "Molejo",
+        "country": "Brazil",
+        "year": 1996
+    },
+    {
+        "id": 234567,
+        "title": "Inaraí",
+        "genre": "Pagode",
+        "authors": "Raça Negra",
+        "country": "Brazil",
+        "year": 1992
+    },
+    {
+        "id": 345678,
+        "title": "Beijo Geladinho",
+        "genre": "Pagode",
+        "authors": "Negritude Jr.",
+        "country": "Brazil",
+        "year": 1997
+    },
+    {
+        "id": 456789,
+        "title": "A Vida é Festa",
+        "genre": "Pagode",
+        "authors": "Só Pra Contrariar",
+        "country": "Brazil",
+        "year": 1997
+    },
+    {
+        "id": 567890,
+        "title": "Quando É Amor",
+        "genre": "Pagode",
+        "authors": "Sorriso Maroto",
+        "country": "Brazil",
+        "year": 2004
+    },
+    {
+        "id": 123456,
+        "title": "Billie Jean",
+        "genre": "Pop",
+        "authors": "Michael Jackson",
+        "country": "USA",
+        "year": 1983
+    },
+    {
+        "id": 234567,
+        "title": "Like a Prayer",
+        "genre": "Pop",
+        "authors": "Madonna",
+        "country": "USA",
+        "year": 1989
+    },
+    {
+        "id": 345678,
+        "title": "Hey Jude",
+        "genre": "Pop",
+        "authors": "The Beatles",
+        "country": "United Kingdom",
+        "year": 1968
+    },
+    {
+        "id": 456789,
+        "title": "Halo",
+        "genre": "Pop",
+        "authors": "Beyoncé",
+        "country": "USA",
+        "year": 2008
+    },
+    {
+        "id": 567890,
+        "title": "Shape of You",
+        "genre": "Pop",
+        "authors": "Ed Sheeran",
+        "country": "United Kingdom",
+        "year": 2017
+    },
+    {
+        "id": 123456,
+        "title": "Around the World",
+        "genre": "Eletrônica",
+        "authors": "Daft Punk",
+        "country": "France",
+        "year": 1997
+    },
+    {
+        "id": 234567,
+        "title": "Blue (Da Ba Dee)",
+        "genre": "Eletrônica",
+        "authors": "Eiffel 65",
+        "country": "Italy",
+        "year": 1999
+    },
+    {
+        "id": 345678,
+        "title": "Sandstorm",
+        "genre": "Eletrônica",
+        "authors": "Darude",
+        "country": "Finland",
+        "year": 1999
+    },
+    {
+        "id": 456789,
+        "title": "Insomnia",
+        "genre": "Eletrônica",
+        "authors": "Faithless",
+        "country": "United Kingdom",
+        "year": 1995
+    },
+    {
+        "id": 567890,
+        "title": "Children",
+        "genre": "Eletrônica",
+        "authors": "Robert Miles",
+        "country": "Italy",
+        "year": 1995
+    },
+    {
+        "id": 123456,
+        "title": "Take Five",
+        "genre": "Jazz",
+        "authors": "Dave Brubeck Quartet",
+        "country": "USA",
+        "year": 1959
+    },
+    {
+        "id": 234567,
+        "title": "So What",
+        "genre": "Jazz",
+        "authors": "Miles Davis",
+        "country": "USA",
+        "year": 1959
+    },
+    {
+        "id": 345678,
+        "title": "Kind of Blue",
+        "genre": "Jazz",
+        "authors": "Miles Davis",
+        "country": "USA",
+        "year": 1959
+    },
+    {
+        "id": 456789,
+        "title": "A Love Supreme",
+        "genre": "Jazz",
+        "authors": "John Coltrane",
+        "country": "USA",
+        "year": 1965
+    },
+    {
+        "id": 567890,
+        "title": "Giant Steps",
+        "genre": "Jazz",
+        "authors": "John Coltrane",
+        "country": "USA",
+        "year": 1960
+    },
+    {
+        "id": 123456,
+        "title": "Ain't No Sunshine",
+        "genre": "R&B",
+        "authors": "Bill Withers",
+        "country": "USA",
+        "year": 1971
+    },
+    {
+        "id": 234567,
+        "title": "What's Going On",
+        "genre": "R&B",
+        "authors": "Marvin Gaye",
+        "country": "USA",
+        "year": 1971
+    },
+    {
+        "id": 345678,
+        "title": "Respect",
+        "genre": "R&B",
+        "authors": "Aretha Franklin",
+        "country": "USA",
+        "year": 1967
+    },
+    {
+        "id": 456789,
+        "title": "Stand by Me",
+        "genre": "R&B",
+        "authors": "Ben E. King",
+        "country": "USA",
+        "year": 1961
+    },
+    {
+        "id": 567890,
+        "title": "I Heard It Through the Grapevine",
+        "genre": "R&B",
+        "authors": "Gladys Knight & the Pips",
+        "country": "USA",
+        "year": 1967
+    },
+    {
+        "id": 123456,
+        "title": "No Woman, No Cry",
+        "genre": "Reggae",
+        "authors": "Bob Marley",
+        "country": "Jamaica",
+        "year": 1974
+    },
+    {
+        "id": 234567,
+        "title": "Buffalo Soldier",
+        "genre": "Reggae",
+        "authors": "Bob Marley",
+        "country": "Jamaica",
+        "year": 1983
+    },
+    {
+        "id": 345678,
+        "title": "Is This Love",
+        "genre": "Reggae",
+        "authors": "Bob Marley",
+        "country": "Jamaica",
+        "year": 1978
+    },
+    {
+        "id": 456789,
+        "title": "Chama o Mêu",
+        "genre": "Reggae",
+        "authors": "Natiruts",
+        "country": "Brazil",
+        "year": 2005
+    },
+    {
+        "id": 567890,
+        "title": "I Shot the Sheriff",
+        "genre": "Reggae",
+        "authors": "Bob Marley",
+        "country": "Jamaica",
+        "year": 1973
+    },
+    {
+        "id": 123456,
+        "title": "Chega de Saudade",
+        "genre": "Bossa Nova",
+        "authors": "Tom Jobim, Vinicius de Moraes",
+        "country": "Brazil",
+        "year": 1958
+    },
+    {
+        "id": 234567,
+        "title": "Garota de Ipanema",
+        "genre": "Bossa Nova",
+        "authors": "Tom Jobim, Vinicius de Moraes",
+        "country": "Brazil",
+        "year": 1962
+    },
+    {
+        "id": 345678,
+        "title": "Desafinado",
+        "genre": "Bossa Nova",
+        "authors": "Tom Jobim, Newton Mendonça",
+        "country": "Brazil",
+        "year": 1959
+    },
+    {
+        "id": 456789,
+        "title": "Águas de Março",
+        "genre": "Bossa Nova",
+        "authors": "Tom Jobim",
+        "country": "Brazil",
+        "year": 1972
+    },
+    {
+        "id": 567890,
+        "title": "Wave",
+        "genre": "Bossa Nova",
+        "authors": "Tom Jobim",
+        "country": "Brazil",
+        "year": 1967
+    },
+    {
+        "id": 123456,
+        "title": "Asa Branca",
+        "genre": "Forró",
+        "authors": "Luiz Gonzaga, Humberto Teixeira",
+        "country": "Brazil",
+        "year": 1947
+    },
+    {
+        "id": 234567,
+        "title": "Xote das Meninas",
+        "genre": "Forró",
+        "authors": "Luiz Gonzaga, Zé Dantas",
+        "country": "Brazil",
+        "year": 1964
+    },
+    {
+        "id": 345678,
+        "title": "Eu Só Quero um Xodó",
+        "genre": "Forró",
+        "authors": "Dominguinhos, Anastácia",
+        "country": "Brazil",
+        "year": 1973
+    },
+    {
+        "id": 456789,
+        "title": "Baião",
+        "genre": "Forró",
+        "authors": "Luiz Gonzaga, Humberto Teixeira",
+        "country": "Brazil",
+        "year": 1946
+    },
+    {
+        "id": 567890,
+        "title": "Cintura Fina",
+        "genre": "Forró",
+        "authors": "Luiz Gonzaga, Zé Dantas",
+        "country": "Brazil",
+        "year": 1958
+    }
+]

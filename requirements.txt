@@ -1,0 +1,9 @@
+coloredlogs
+fuzzywuzzy
+google-cloud-aiplatform
+openai
+pandas
+pdoc3
+python-Levenshtein
+pyyaml
+streamlit
