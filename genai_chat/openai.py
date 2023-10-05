@@ -224,6 +224,7 @@ class BotOpenAI(Bot):
         """
         super().__init__()
 
+        self._genai_name = "OpenAI"
         openai_settings = get_settings().get('openai')
         self._api_type = openai_settings.get('api_type', "open_ai")
         self._api_key = openai_settings.get('api_key')
@@ -306,7 +307,8 @@ class BotOpenAI(Bot):
             Bot message and list os citations.
         """
         # TODO: add chat context handling.
-        logging.debug("Generating LLM bot response...")
+        logging.debug(f"[{self._genai_name}] User message: {user_message}")
+        logging.debug(f"[{self._genai_name}] Generating LLM bot response...")
 
         user_message = user_message.replace('\'', "\"")
         bot_message, bot_citations = "", []
@@ -320,17 +322,17 @@ class BotOpenAI(Bot):
             bot_message = " ".join(bot_message.replace("\n", " ").split())
 
             try:
-                logging.debug(f"User preferences: {bot_message}")
+                logging.debug(f"[{self._genai_name}] User preferences: {bot_message}")
                 search_params = json.loads(bot_message)
                 music_recommendations = self.get_music_recommendations(**search_params)
                 self._citations_available = music_recommendations if music_recommendations else []
             except Exception as e:
-                logging.warning(f"Failed to fetch data via simple search: {e}")
+                logging.warning(f"[{self._genai_name}] Failed to fetch data via simple search: {e}")
                 pass
 
             if self._citations_available:
                 # Workaround to couple LLM with external data without the need to retrain the model:
-                logging.debug("Injecting external data into LLM...")
+                logging.debug(f"[{self._genai_name}] Injecting external data into LLM...")
                 citations_available_str = ";\n\n".join([json.dumps(citation) for citation in self._citations_available])
                 user_message_prompt = f"""
                     User message:
@@ -351,12 +353,16 @@ class BotOpenAI(Bot):
                 bot_message = response.choices[0].message.content
         except Exception as e:
             bot_message = self._error_message_general
-            logging.error(e)
+            logging.error(f"[{self._genai_name}] {e}")
             pass
 
         # Handling with empty citations:
         if self._filter_bot_messages_without_citations and "\"" in bot_message and not bot_citations:
-            logging.warning(f"No citation found on bot message: '{bot_message}'. Raising default error message.")
+            logging.warning(
+                f"[{self._genai_name}] No citation found on bot message: '{bot_message}'. "
+                f"Raising default error message."
+            )
+
             bot_message = self._error_message_bot_message_without_citations
 
         self._openai_messages.append({"role": "assistant", "content": bot_message})
@@ -364,6 +370,9 @@ class BotOpenAI(Bot):
 
         self._add_user_message(user_message=user_message)
         self._add_assistant_message(assistant_message=bot_message, assistant_citations=bot_citations)
+
+        logging.debug(f"[{self._genai_name}] Bot message: {bot_message}")
+        logging.debug(f"[{self._genai_name}] Bot citations: {bot_citations}")
 
         return bot_message, bot_citations
 
@@ -394,6 +403,7 @@ class BotOpenAIFC(BotOpenAI):
         """
         super().__init__()
 
+        self._genai_name = "OpenAI FC"
         openai_settings = get_settings().get('openai')
         self._llm_name = openai_settings.get('llm_fc_name', "gpt-35-turbo-16k")
         self._openai_functions = []
@@ -436,7 +446,8 @@ class BotOpenAIFC(BotOpenAI):
             Bot message and list os citations.
         """
         # TODO: add chat context handling.
-        logging.debug("Generating LLM bot response...")
+        logging.debug(f"[{self._genai_name}] User message: {user_message}")
+        logging.debug(f"[{self._genai_name}] Generating LLM bot response...")
 
         user_message = user_message.replace('\'', "\"")
         self._openai_messages.append({"role": "user", "content": user_message})
@@ -462,13 +473,13 @@ class BotOpenAIFC(BotOpenAI):
                 function_caller = self._functions.get(function_name)
                 function_kwargs = {k: function_args.get(k) for k in function_caller.params()}
 
-                logging.debug(f"User preferences: {function_kwargs}")
+                logging.debug(f"[{self._genai_name}] User preferences: {function_kwargs}")
                 function_response = function_caller(**function_kwargs)
                 self._citations_available = function_response
                 function_content = json.dumps(function_response)
 
                 # Coupling LLM with external data without the need to retrain the model:
-                logging.debug("Injecting external data into LLM...")
+                logging.debug(f"[{self._genai_name}] Injecting external data into LLM...")
                 self._openai_messages.append({"role": "function", "name": function_name, "content": function_content})
 
                 response = self._get_llm_response(temperature=self._temperature_llm, messages=self._openai_messages)
@@ -481,12 +492,16 @@ class BotOpenAIFC(BotOpenAI):
             bot_citations = self._extract_citations(bot_message=bot_message)
         except Exception as e:
             bot_message = self._error_message_general
-            logging.error(e)
+            logging.error(f"[{self._genai_name}] {e}")
             pass
 
         # Handling with empty citations:
         if self._filter_bot_messages_without_citations and "\"" in bot_message and not bot_citations:
-            logging.warning(f"No citation found on bot message: '{bot_message}'. Raising default error message.")
+            logging.warning(
+                f"[{self._genai_name}] No citation found on bot message: '{bot_message}'. "
+                f"Raising default error message."
+            )
+
             bot_message = self._error_message_bot_message_without_citations
 
         self._openai_messages.append({"role": "assistant", "content": bot_message})
@@ -494,5 +509,8 @@ class BotOpenAIFC(BotOpenAI):
 
         self._add_user_message(user_message=user_message)
         self._add_assistant_message(assistant_message=bot_message, assistant_citations=bot_citations)
+
+        logging.debug(f"[{self._genai_name}] Bot message: {bot_message}")
+        logging.debug(f"[{self._genai_name}] Bot citations: {bot_citations}")
 
         return bot_message, bot_citations

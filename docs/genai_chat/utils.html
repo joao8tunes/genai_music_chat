@@ -151,18 +151,7 @@ def md5_hash(string: str) -&gt; str:
     &#34;&#34;&#34;
     string_hash = md5(string.encode()).hexdigest()
 
-    return string_hash
-
-
-def extract_float_from_text(text: str) -&gt; [float]:
-    float_regex = r&#34;\d*\.\d+|\d+&#34;
-    values_list = re.findall(float_regex, str(text).replace(&#34;,&#34;, &#34;.&#34;))
-    float_values = None
-
-    if values_list:
-        float_values = values_list
-
-    return float_values</code></pre>
+    return string_hash</code></pre>
 </details>
 </section>
 <section>
@@ -353,26 +342,6 @@ def extract_float_from_text(text: str) -&gt; [float]:
     return string_hash</code></pre>
 </details>
 </dd>
-<dt id="genai_chat.utils.extract_float_from_text"><code class="name flex">
-<span>def <span class="ident">extract_float_from_text</span></span>(<span>text: str) ‑> [<class 'float'>]</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def extract_float_from_text(text: str) -&gt; [float]:
-    float_regex = r&#34;\d*\.\d+|\d+&#34;
-    values_list = re.findall(float_regex, str(text).replace(&#34;,&#34;, &#34;.&#34;))
-    float_values = None
-
-    if values_list:
-        float_values = values_list
-
-    return float_values</code></pre>
-</details>
-</dd>
 </dl>
 </section>
 <section>
@@ -440,7 +409,6 @@ setTimeout(() => input.focus(), 100);
 <li><code><a title="genai_chat.utils.compare_strings" href="#genai_chat.utils.compare_strings">compare_strings</a></code></li>
 <li><code><a title="genai_chat.utils.merge_dict" href="#genai_chat.utils.merge_dict">merge_dict</a></code></li>
 <li><code><a title="genai_chat.utils.md5_hash" href="#genai_chat.utils.md5_hash">md5_hash</a></code></li>
-<li><code><a title="genai_chat.utils.extract_float_from_text" href="#genai_chat.utils.extract_float_from_text">extract_float_from_text</a></code></li>
 </ul>
 </li>
 </ul>

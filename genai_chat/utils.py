@@ -123,14 +123,3 @@ def md5_hash(string: str) -> str:
     string_hash = md5(string.encode()).hexdigest()
 
     return string_hash
-
-
-def extract_float_from_text(text: str) -> [float]:
-    float_regex = r"\d*\.\d+|\d+"
-    values_list = re.findall(float_regex, str(text).replace(",", "."))
-    float_values = None
-
-    if values_list:
-        float_values = values_list
-
-    return float_values

@@ -23,6 +23,12 @@ INDEX=[
 "doc":"Abstract GenAI bot. Instantiates an abstract GenAI bot object."
 },
 {
+"ref":"genai_chat.core.Bot.get_genai_name",
+"url":1,
+"doc":"Get the Generative AI technology name. Returns    - _genai_name: str Generative AI technology name.",
+"func":1
+},
+{
 "ref":"genai_chat.core.Bot.chat",
 "url":1,
 "doc":"Abstract chat method: sends a user message and receives a bot response from a LLM. Parameters      user_message: str User message.  kwargs: dict Keyword-based arguments. Returns    - bot_message, bot_citations: (str, [dict]) Bot message and list os citations.",
@@ -113,6 +119,12 @@ INDEX=[
 "func":1
 },
 {
+"ref":"genai_chat.openai.BotOpenAI.get_genai_name",
+"url":1,
+"doc":"Get the Generative AI technology name. Returns    - _genai_name: str Generative AI technology name.",
+"func":1
+},
+{
 "ref":"genai_chat.openai.BotOpenAI.get_chat_history",
 "url":1,
 "doc":"Get chat history. Returns    - _chat_history: [dict] Chat history.",
@@ -133,6 +145,12 @@ INDEX=[
 "ref":"genai_chat.openai.BotOpenAIFC.chat",
 "url":2,
 "doc":"Sends a user message and receives a bot response from a LLM. Parameters      user_message: str User message.  kwargs: dict Keyword-based arguments. Returns    - bot_message, bot_citations: (str, [dict]) Bot message and list os citations.",
+"func":1
+},
+{
+"ref":"genai_chat.openai.BotOpenAIFC.get_genai_name",
+"url":1,
+"doc":"Get the Generative AI technology name. Returns    - _genai_name: str Generative AI technology name.",
 "func":1
 },
 {
@@ -161,6 +179,12 @@ INDEX=[
 "ref":"genai_chat.palm.BotPaLM.chat",
 "url":3,
 "doc":"Sends a user message and receives a bot response from a LLM. Parameters      user_message: str User message.  kwargs: dict Keyword-based arguments. Returns    - bot_message, bot_citations: (str, [dict]) Bot message and list os citations.",
+"func":1
+},
+{
+"ref":"genai_chat.palm.BotPaLM.get_genai_name",
+"url":1,
+"doc":"Get the Generative AI technology name. Returns    - _genai_name: str Generative AI technology name.",
 "func":1
 },
 {
@@ -219,12 +243,6 @@ INDEX=[
 "ref":"genai_chat.utils.md5_hash",
 "url":5,
 "doc":"Hash a string using the MD5 algorithm. Parameters      string: str String to convert to MD5 hash. Returns    - string_hash: str MD5 hash.",
-"func":1
-},
-{
-"ref":"genai_chat.utils.extract_float_from_text",
-"url":5,
-"doc":"",
 "func":1
 }
 ]

@@ -51,6 +51,8 @@ class Bot:
     Abstract GenAI bot.
     &#34;&#34;&#34;
 
+    _genai_name: str
+    &#34;&#34;&#34;Generative AI technology name.&#34;&#34;&#34;
     _prompt_behavior: str
     &#34;&#34;&#34;Bot behavior: initial prompt.&#34;&#34;&#34;
     _citation_regex: str
@@ -94,6 +96,17 @@ class Bot:
         self._error_message_bot_message_without_citations = \
             genai_settings.get(&#39;error_message_bot_message_without_citations&#39;, &#34;&#34;)
         self._error_message_general = genai_settings.get(&#39;error_message_general&#39;, &#34;&#34;)
+
+    def get_genai_name(self) -&gt; str:
+        &#34;&#34;&#34;
+        Get the Generative AI technology name.
+
+        Returns
+        -------
+        _genai_name: str
+            Generative AI technology name.
+        &#34;&#34;&#34;
+        return self._genai_name
 
     def _load_database(self) -&gt; [dict]:
         &#34;&#34;&#34;
@@ -296,6 +309,8 @@ class Bot:
     Abstract GenAI bot.
     &#34;&#34;&#34;
 
+    _genai_name: str
+    &#34;&#34;&#34;Generative AI technology name.&#34;&#34;&#34;
     _prompt_behavior: str
     &#34;&#34;&#34;Bot behavior: initial prompt.&#34;&#34;&#34;
     _citation_regex: str
@@ -339,6 +354,17 @@ class Bot:
         self._error_message_bot_message_without_citations = \
             genai_settings.get(&#39;error_message_bot_message_without_citations&#39;, &#34;&#34;)
         self._error_message_general = genai_settings.get(&#39;error_message_general&#39;, &#34;&#34;)
+
+    def get_genai_name(self) -&gt; str:
+        &#34;&#34;&#34;
+        Get the Generative AI technology name.
+
+        Returns
+        -------
+        _genai_name: str
+            Generative AI technology name.
+        &#34;&#34;&#34;
+        return self._genai_name
 
     def _load_database(self) -&gt; [dict]:
         &#34;&#34;&#34;
@@ -523,6 +549,32 @@ class Bot:
 </ul>
 <h3>Methods</h3>
 <dl>
+<dt id="genai_chat.core.Bot.get_genai_name"><code class="name flex">
+<span>def <span class="ident">get_genai_name</span></span>(<span>self) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get the Generative AI technology name.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>_genai_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>Generative AI technology name.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_genai_name(self) -&gt; str:
+    &#34;&#34;&#34;
+    Get the Generative AI technology name.
+
+    Returns
+    -------
+    _genai_name: str
+        Generative AI technology name.
+    &#34;&#34;&#34;
+    return self._genai_name</code></pre>
+</details>
+</dd>
 <dt id="genai_chat.core.Bot.chat"><code class="name flex">
 <span>def <span class="ident">chat</span></span>(<span>self, user_message: str, **kwargs) ‑> (<class 'str'>, [<class 'dict'>])</span>
 </code></dt>
@@ -748,6 +800,7 @@ setTimeout(() => input.focus(), 100);
 <li>
 <h4><code><a title="genai_chat.core.Bot" href="#genai_chat.core.Bot">Bot</a></code></h4>
 <ul class="">
+<li><code><a title="genai_chat.core.Bot.get_genai_name" href="#genai_chat.core.Bot.get_genai_name">get_genai_name</a></code></li>
 <li><code><a title="genai_chat.core.Bot.chat" href="#genai_chat.core.Bot.chat">chat</a></code></li>
 <li><code><a title="genai_chat.core.Bot.get_chat_history" href="#genai_chat.core.Bot.get_chat_history">get_chat_history</a></code></li>
 <li><code><a title="genai_chat.core.Bot.get_music_recommendations" href="#genai_chat.core.Bot.get_music_recommendations">get_music_recommendations</a></code></li>

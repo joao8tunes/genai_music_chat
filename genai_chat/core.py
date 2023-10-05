@@ -22,6 +22,8 @@ class Bot:
     Abstract GenAI bot.
     """
 
+    _genai_name: str
+    """Generative AI technology name."""
     _prompt_behavior: str
     """Bot behavior: initial prompt."""
     _citation_regex: str
@@ -65,6 +67,17 @@ class Bot:
         self._error_message_bot_message_without_citations = \
             genai_settings.get('error_message_bot_message_without_citations', "")
         self._error_message_general = genai_settings.get('error_message_general', "")
+
+    def get_genai_name(self) -> str:
+        """
+        Get the Generative AI technology name.
+
+        Returns
+        -------
+        _genai_name: str
+            Generative AI technology name.
+        """
+        return self._genai_name
 
     def _load_database(self) -> [dict]:
         """

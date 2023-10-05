@@ -58,6 +58,7 @@ class BotPaLM(Bot):
         """
         super().__init__()
 
+        self._genai_name = "PaLM"
         palm_settings = get_settings().get('palm')
         self._project_id = palm_settings.get('project_id')
         self._text_llm_name = palm_settings.get('text_llm_name', "text-bison@001")
@@ -107,7 +108,8 @@ class BotPaLM(Bot):
             Bot message and list os citations.
         """
         # TODO: add chat context handling.
-        logging.debug("Generating LLM bot response...")
+        logging.debug(f"[{self._genai_name}] User message: {user_message}")
+        logging.debug(f"[{self._genai_name}] Generating LLM bot response...")
 
         user_message = user_message.replace('\'', "\"")
         bot_message, bot_citations = "", []
@@ -121,17 +123,17 @@ class BotPaLM(Bot):
             bot_citations = []
 
             try:
-                logging.debug(f"User preferences: {bot_message}")
+                logging.debug(f"[{self._genai_name}] User preferences: {bot_message}")
                 search_params = json.loads(bot_message)
                 music_recommendations = self.get_music_recommendations(**search_params)
                 self._citations_available = music_recommendations if music_recommendations else []
             except Exception as e:
-                logging.warning(f"Failed to fetch data via simple search: {e}")
+                logging.warning(f"[{self._genai_name}] Failed to fetch data via simple search: {e}")
                 pass
 
             if self._citations_available:
                 # Workaround to couple LLM with external data without the need to retrain the model:
-                logging.debug("Injecting external data into LLM...")
+                logging.debug(f"[{self._genai_name}] Injecting external data into LLM...")
                 citations_available_str = ";\n\n".join([json.dumps(citation) for citation in self._citations_available])
                 user_message_prompt = f"""
                     User message:
@@ -153,17 +155,24 @@ class BotPaLM(Bot):
                 bot_message = response.text
         except Exception as e:
             bot_message = self._error_message_general
-            logging.error(e)
+            logging.error(f"[{self._genai_name}] {e}")
             pass
 
         # Handling with empty citations:
         if self._filter_bot_messages_without_citations and "\"" in bot_message and not bot_citations:
-            logging.warning(f"No citation found on bot message: '{bot_message}'. Raising default error message.")
+            logging.warning(
+                f"[{self._genai_name}] No citation found on bot message: '{bot_message}'. "
+                f"Raising default error message."
+            )
+
             bot_message = self._error_message_bot_message_without_citations
 
         bot_message = " ".join(bot_message.replace("\n", " ").split())
 
         self._add_user_message(user_message=user_message)
         self._add_assistant_message(assistant_message=bot_message, assistant_citations=bot_citations)
+
+        logging.debug(f"[{self._genai_name}] Bot message: {bot_message}")
+        logging.debug(f"[{self._genai_name}] Bot citations: {bot_citations}")
 
         return bot_message, bot_citations

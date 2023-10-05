@@ -87,6 +87,7 @@ class BotPaLM(Bot):
         &#34;&#34;&#34;
         super().__init__()
 
+        self._genai_name = &#34;PaLM&#34;
         palm_settings = get_settings().get(&#39;palm&#39;)
         self._project_id = palm_settings.get(&#39;project_id&#39;)
         self._text_llm_name = palm_settings.get(&#39;text_llm_name&#39;, &#34;text-bison@001&#34;)
@@ -136,7 +137,8 @@ class BotPaLM(Bot):
             Bot message and list os citations.
         &#34;&#34;&#34;
         # TODO: add chat context handling.
-        logging.debug(&#34;Generating LLM bot response...&#34;)
+        logging.debug(f&#34;[{self._genai_name}] User message: {user_message}&#34;)
+        logging.debug(f&#34;[{self._genai_name}] Generating LLM bot response...&#34;)
 
         user_message = user_message.replace(&#39;\&#39;&#39;, &#34;\&#34;&#34;)
         bot_message, bot_citations = &#34;&#34;, []
@@ -150,17 +152,17 @@ class BotPaLM(Bot):
             bot_citations = []
 
             try:
-                logging.debug(f&#34;User preferences: {bot_message}&#34;)
+                logging.debug(f&#34;[{self._genai_name}] User preferences: {bot_message}&#34;)
                 search_params = json.loads(bot_message)
                 music_recommendations = self.get_music_recommendations(**search_params)
                 self._citations_available = music_recommendations if music_recommendations else []
             except Exception as e:
-                logging.warning(f&#34;Failed to fetch data via simple search: {e}&#34;)
+                logging.warning(f&#34;[{self._genai_name}] Failed to fetch data via simple search: {e}&#34;)
                 pass
 
             if self._citations_available:
                 # Workaround to couple LLM with external data without the need to retrain the model:
-                logging.debug(&#34;Injecting external data into LLM...&#34;)
+                logging.debug(f&#34;[{self._genai_name}] Injecting external data into LLM...&#34;)
                 citations_available_str = &#34;;\n\n&#34;.join([json.dumps(citation) for citation in self._citations_available])
                 user_message_prompt = f&#34;&#34;&#34;
                     User message:
@@ -182,18 +184,25 @@ class BotPaLM(Bot):
                 bot_message = response.text
         except Exception as e:
             bot_message = self._error_message_general
-            logging.error(e)
+            logging.error(f&#34;[{self._genai_name}] {e}&#34;)
             pass
 
         # Handling with empty citations:
         if self._filter_bot_messages_without_citations and &#34;\&#34;&#34; in bot_message and not bot_citations:
-            logging.warning(f&#34;No citation found on bot message: &#39;{bot_message}&#39;. Raising default error message.&#34;)
+            logging.warning(
+                f&#34;[{self._genai_name}] No citation found on bot message: &#39;{bot_message}&#39;. &#34;
+                f&#34;Raising default error message.&#34;
+            )
+
             bot_message = self._error_message_bot_message_without_citations
 
         bot_message = &#34; &#34;.join(bot_message.replace(&#34;\n&#34;, &#34; &#34;).split())
 
         self._add_user_message(user_message=user_message)
         self._add_assistant_message(assistant_message=bot_message, assistant_citations=bot_citations)
+
+        logging.debug(f&#34;[{self._genai_name}] Bot message: {bot_message}&#34;)
+        logging.debug(f&#34;[{self._genai_name}] Bot citations: {bot_citations}&#34;)
 
         return bot_message, bot_citations</code></pre>
 </details>
@@ -259,6 +268,7 @@ class BotPaLM(Bot):
         &#34;&#34;&#34;
         super().__init__()
 
+        self._genai_name = &#34;PaLM&#34;
         palm_settings = get_settings().get(&#39;palm&#39;)
         self._project_id = palm_settings.get(&#39;project_id&#39;)
         self._text_llm_name = palm_settings.get(&#39;text_llm_name&#39;, &#34;text-bison@001&#34;)
@@ -308,7 +318,8 @@ class BotPaLM(Bot):
             Bot message and list os citations.
         &#34;&#34;&#34;
         # TODO: add chat context handling.
-        logging.debug(&#34;Generating LLM bot response...&#34;)
+        logging.debug(f&#34;[{self._genai_name}] User message: {user_message}&#34;)
+        logging.debug(f&#34;[{self._genai_name}] Generating LLM bot response...&#34;)
 
         user_message = user_message.replace(&#39;\&#39;&#39;, &#34;\&#34;&#34;)
         bot_message, bot_citations = &#34;&#34;, []
@@ -322,17 +333,17 @@ class BotPaLM(Bot):
             bot_citations = []
 
             try:
-                logging.debug(f&#34;User preferences: {bot_message}&#34;)
+                logging.debug(f&#34;[{self._genai_name}] User preferences: {bot_message}&#34;)
                 search_params = json.loads(bot_message)
                 music_recommendations = self.get_music_recommendations(**search_params)
                 self._citations_available = music_recommendations if music_recommendations else []
             except Exception as e:
-                logging.warning(f&#34;Failed to fetch data via simple search: {e}&#34;)
+                logging.warning(f&#34;[{self._genai_name}] Failed to fetch data via simple search: {e}&#34;)
                 pass
 
             if self._citations_available:
                 # Workaround to couple LLM with external data without the need to retrain the model:
-                logging.debug(&#34;Injecting external data into LLM...&#34;)
+                logging.debug(f&#34;[{self._genai_name}] Injecting external data into LLM...&#34;)
                 citations_available_str = &#34;;\n\n&#34;.join([json.dumps(citation) for citation in self._citations_available])
                 user_message_prompt = f&#34;&#34;&#34;
                     User message:
@@ -354,18 +365,25 @@ class BotPaLM(Bot):
                 bot_message = response.text
         except Exception as e:
             bot_message = self._error_message_general
-            logging.error(e)
+            logging.error(f&#34;[{self._genai_name}] {e}&#34;)
             pass
 
         # Handling with empty citations:
         if self._filter_bot_messages_without_citations and &#34;\&#34;&#34; in bot_message and not bot_citations:
-            logging.warning(f&#34;No citation found on bot message: &#39;{bot_message}&#39;. Raising default error message.&#34;)
+            logging.warning(
+                f&#34;[{self._genai_name}] No citation found on bot message: &#39;{bot_message}&#39;. &#34;
+                f&#34;Raising default error message.&#34;
+            )
+
             bot_message = self._error_message_bot_message_without_citations
 
         bot_message = &#34; &#34;.join(bot_message.replace(&#34;\n&#34;, &#34; &#34;).split())
 
         self._add_user_message(user_message=user_message)
         self._add_assistant_message(assistant_message=bot_message, assistant_citations=bot_citations)
+
+        logging.debug(f&#34;[{self._genai_name}] Bot message: {bot_message}&#34;)
+        logging.debug(f&#34;[{self._genai_name}] Bot citations: {bot_citations}&#34;)
 
         return bot_message, bot_citations</code></pre>
 </details>
@@ -413,7 +431,8 @@ class BotPaLM(Bot):
         Bot message and list os citations.
     &#34;&#34;&#34;
     # TODO: add chat context handling.
-    logging.debug(&#34;Generating LLM bot response...&#34;)
+    logging.debug(f&#34;[{self._genai_name}] User message: {user_message}&#34;)
+    logging.debug(f&#34;[{self._genai_name}] Generating LLM bot response...&#34;)
 
     user_message = user_message.replace(&#39;\&#39;&#39;, &#34;\&#34;&#34;)
     bot_message, bot_citations = &#34;&#34;, []
@@ -427,17 +446,17 @@ class BotPaLM(Bot):
         bot_citations = []
 
         try:
-            logging.debug(f&#34;User preferences: {bot_message}&#34;)
+            logging.debug(f&#34;[{self._genai_name}] User preferences: {bot_message}&#34;)
             search_params = json.loads(bot_message)
             music_recommendations = self.get_music_recommendations(**search_params)
             self._citations_available = music_recommendations if music_recommendations else []
         except Exception as e:
-            logging.warning(f&#34;Failed to fetch data via simple search: {e}&#34;)
+            logging.warning(f&#34;[{self._genai_name}] Failed to fetch data via simple search: {e}&#34;)
             pass
 
         if self._citations_available:
             # Workaround to couple LLM with external data without the need to retrain the model:
-            logging.debug(&#34;Injecting external data into LLM...&#34;)
+            logging.debug(f&#34;[{self._genai_name}] Injecting external data into LLM...&#34;)
             citations_available_str = &#34;;\n\n&#34;.join([json.dumps(citation) for citation in self._citations_available])
             user_message_prompt = f&#34;&#34;&#34;
                 User message:
@@ -459,18 +478,25 @@ class BotPaLM(Bot):
             bot_message = response.text
     except Exception as e:
         bot_message = self._error_message_general
-        logging.error(e)
+        logging.error(f&#34;[{self._genai_name}] {e}&#34;)
         pass
 
     # Handling with empty citations:
     if self._filter_bot_messages_without_citations and &#34;\&#34;&#34; in bot_message and not bot_citations:
-        logging.warning(f&#34;No citation found on bot message: &#39;{bot_message}&#39;. Raising default error message.&#34;)
+        logging.warning(
+            f&#34;[{self._genai_name}] No citation found on bot message: &#39;{bot_message}&#39;. &#34;
+            f&#34;Raising default error message.&#34;
+        )
+
         bot_message = self._error_message_bot_message_without_citations
 
     bot_message = &#34; &#34;.join(bot_message.replace(&#34;\n&#34;, &#34; &#34;).split())
 
     self._add_user_message(user_message=user_message)
     self._add_assistant_message(assistant_message=bot_message, assistant_citations=bot_citations)
+
+    logging.debug(f&#34;[{self._genai_name}] Bot message: {bot_message}&#34;)
+    logging.debug(f&#34;[{self._genai_name}] Bot citations: {bot_citations}&#34;)
 
     return bot_message, bot_citations</code></pre>
 </details>
@@ -481,6 +507,7 @@ class BotPaLM(Bot):
 <li><code><b><a title="genai_chat.core.Bot" href="core.html#genai_chat.core.Bot">Bot</a></b></code>:
 <ul class="hlist">
 <li><code><a title="genai_chat.core.Bot.get_chat_history" href="core.html#genai_chat.core.Bot.get_chat_history">get_chat_history</a></code></li>
+<li><code><a title="genai_chat.core.Bot.get_genai_name" href="core.html#genai_chat.core.Bot.get_genai_name">get_genai_name</a></code></li>
 <li><code><a title="genai_chat.core.Bot.get_music_recommendations" href="core.html#genai_chat.core.Bot.get_music_recommendations">get_music_recommendations</a></code></li>
 </ul>
 </li>
