@@ -12,7 +12,6 @@ genai_chat:
             - Limit responses to 50 tokens for users;
             - Maintain clarity and conciseness in responses, respecting the limit;
             - Be courteous in all situations;
-            - Preferably communicate in Brazilian Portuguese, adapting to the user's language;
             - Never discuss sensitive or controversial topics; only engage in conversations about music.
             
         'RECOMMENDATION' Rules:
