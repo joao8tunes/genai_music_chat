@@ -138,23 +138,39 @@ class Bot:
         &#34;&#34;&#34;
         logging.debug(&#34;Extracting citations from message...&#34;)
         selected_citations = {}
-        names_list = re.findall(pattern=self._citation_regex, string=bot_message)
         citations = self._citations_available.copy()
 
-        if names_list and citations:
-            for name in names_list:
-                max_similarity = 0.0
-                ref, ref_index = None, None
+        if citations:
+            # Extracting citations using regex and fuzzy string matching:
+            names_list = re.findall(pattern=self._citation_regex, string=bot_message)
 
-                for data_index, data in enumerate(citations, start=0):
-                    similarity = compare_strings(name, data[self._citation_field], case_sensitive=False)
+            if names_list:
+                for name in names_list:
+                    max_similarity = 0.0
+                    ref, ref_index = None, None
 
-                    if similarity &gt; max_similarity:
-                        max_similarity = similarity
-                        ref, ref_index = data, data_index
+                    for data_index, data in enumerate(citations, start=0):
+                        similarity = compare_strings(name, data[self._citation_field], case_sensitive=False)
 
-                if max_similarity &gt;= self._citation_threshold:
-                    selected_citations[ref_index] = ref
+                        if similarity &gt; max_similarity:
+                            max_similarity = similarity
+                            ref, ref_index = data, data_index
+
+                    if max_similarity &gt;= self._citation_threshold:
+                        selected_citations[ref_index] = ref
+
+            # Extracting citations using only fuzzy string matching:
+            for data_index, data in enumerate(citations, start=0):
+                if data_index not in selected_citations:
+                    similarity = compare_strings(
+                        data[self._citation_field],
+                        bot_message,
+                        fuzzy_method=&#34;partial_ratio&#34;,
+                        case_sensitive=False
+                    )
+
+                    if similarity &gt;= self._citation_threshold:
+                        selected_citations[data_index] = data.copy()
 
         if selected_citations:
             citations, citations_ids = list(selected_citations.values()), list(selected_citations.keys())
@@ -396,23 +412,39 @@ class Bot:
         &#34;&#34;&#34;
         logging.debug(&#34;Extracting citations from message...&#34;)
         selected_citations = {}
-        names_list = re.findall(pattern=self._citation_regex, string=bot_message)
         citations = self._citations_available.copy()
 
-        if names_list and citations:
-            for name in names_list:
-                max_similarity = 0.0
-                ref, ref_index = None, None
+        if citations:
+            # Extracting citations using regex and fuzzy string matching:
+            names_list = re.findall(pattern=self._citation_regex, string=bot_message)
 
-                for data_index, data in enumerate(citations, start=0):
-                    similarity = compare_strings(name, data[self._citation_field], case_sensitive=False)
+            if names_list:
+                for name in names_list:
+                    max_similarity = 0.0
+                    ref, ref_index = None, None
 
-                    if similarity &gt; max_similarity:
-                        max_similarity = similarity
-                        ref, ref_index = data, data_index
+                    for data_index, data in enumerate(citations, start=0):
+                        similarity = compare_strings(name, data[self._citation_field], case_sensitive=False)
 
-                if max_similarity &gt;= self._citation_threshold:
-                    selected_citations[ref_index] = ref
+                        if similarity &gt; max_similarity:
+                            max_similarity = similarity
+                            ref, ref_index = data, data_index
+
+                    if max_similarity &gt;= self._citation_threshold:
+                        selected_citations[ref_index] = ref
+
+            # Extracting citations using only fuzzy string matching:
+            for data_index, data in enumerate(citations, start=0):
+                if data_index not in selected_citations:
+                    similarity = compare_strings(
+                        data[self._citation_field],
+                        bot_message,
+                        fuzzy_method=&#34;partial_ratio&#34;,
+                        case_sensitive=False
+                    )
+
+                    if similarity &gt;= self._citation_threshold:
+                        selected_citations[data_index] = data.copy()
 
         if selected_citations:
             citations, citations_ids = list(selected_citations.values()), list(selected_citations.keys())
