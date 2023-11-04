@@ -325,7 +325,9 @@ class BotOpenAI(Bot):
                 logging.debug(f"[{self._genai_name}] User preferences: {bot_message}")
                 search_params = json.loads(bot_message)
                 music_recommendations = self.get_music_recommendations(**search_params)
-                self._citations_available = music_recommendations if music_recommendations else []
+
+                if music_recommendations:
+                    self._citations_available = music_recommendations + self._citations_available
             except Exception as e:
                 logging.warning(f"[{self._genai_name}] Failed to fetch data via simple search: {e}")
                 pass
@@ -475,7 +477,7 @@ class BotOpenAIFC(BotOpenAI):
 
                 logging.debug(f"[{self._genai_name}] User preferences: {function_kwargs}")
                 function_response = function_caller(**function_kwargs)
-                self._citations_available = function_response
+                self._citations_available = function_response + self._citations_available
                 function_content = json.dumps(function_response)
 
                 # Coupling LLM with external data without the need to retrain the model:
