@@ -4,10 +4,14 @@ This is a simple pilot Python project that describes the use of AI in real chat 
 The purpose of this project is to serve as an example for a kickstart for those entering the field of Generative AI (GenAI). 
 To use this app, you can opt for large language models (LLM) provided by GenAI services such as [OpenAI](https://openai.com/), [Azure OpenAI](https://azure.microsoft.com/en-us/products/ai-services/openai-service/), and/or [GCP Vertex AI PaLM](https://cloud.google.com/vertex-ai).
 
+Generative artificial intelligence, while capable of creating original content, faces limitations in the predictability and coherence of its results. 
+Additionally, its understanding of human context may be incomplete, leading to distorted interpretations in some tasks.
+These limitations are often reported by providers themselves, such as [OpenAI](https://openai.com/blog/chatgpt) (search for _"Limitations"_) and [PaLM](https://cloud.google.com/vertex-ai/docs/generative-ai/learn/responsible-ai#limitations).
+
 
 ## 1. System Requirements
 
-Before starting to use this app, you must obtain access credentials for the following GenAI services, according to your needs: [OpenAI](https://platform.openai.com/account/api-keys), [Azure OpenAI](https://learn.microsoft.com/en-us/azure/ai-services/openai/reference), and/or [GCP Vertex AI PaLM](https://cloud.google.com/vertex-ai/docs/generative-ai/start/quickstarts/api-quickstart). 
+Before starting to use this app, you must obtain access credentials for the following GenAI services, according to your needs: [OpenAI](https://platform.openai.com/account/api-keys), [Azure OpenAI](https://learn.microsoft.com/en-us/azure/ai-services/openai/reference), and/or [GCP Vertex AI PaLM](https://cloud.google.com/vertex-ai/docs/workbench/reference/authentication#client-libs). 
 After cloning this repository to your PC, you should edit the YAML file `assets/settings.yml`, adding your credentials for the GenAI services in the `openai` and `palm` file entries.
 Following the minimum system requirements to execute this app:
 
