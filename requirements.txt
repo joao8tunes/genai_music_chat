@@ -1,6 +1,8 @@
+beautifulsoup4
 coloredlogs
 fuzzywuzzy
 google-cloud-aiplatform
+markdown
 openai
 pandas
 pdoc3

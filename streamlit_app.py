@@ -28,7 +28,7 @@ def show_chat_sessions() -> None:
         for chat in st.session_state['chats']:
             st.markdown(f"#### {chat['genai']} Chat #{chat['id']}")
 
-            for message in chat['bot'].get_chat_history():
+            for message in chat['bot'].chat_history:
                 avatar = "ℹ️" if message['author'] == "info" else None
 
                 with st.chat_message(message['author'], avatar=avatar):
@@ -154,11 +154,11 @@ def prepare_chat_sessions_to_download() -> [dict]:
         data.append({
             "id": chat['id'],
             "genai": chat['genai'],
-            "messages": chat['bot'].get_chat_history(),
+            "messages": chat['bot'].chat_history,
             "active": chat['active']
         })
 
-    json_data = json.dumps(data)
+    json_data = json.dumps(data, indent=4)
 
     return json_data
 

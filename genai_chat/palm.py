@@ -9,13 +9,13 @@ PaLM GenAI operations.
 """
 
 from vertexai.preview.language_models import ChatModel, TextGenerationModel
-from vertexai.language_models._language_models import ChatSession
+from vertexai.language_models._language_models import ChatMessage
 from vertexai.language_models import _language_models
 from vertexai import init
-
 import logging
 import json
 
+from genai_chat.utils import extract_json_from_text, strip_markdown_from_text
 from genai_chat.settings import get_settings
 from genai_chat.core import Bot
 
@@ -35,14 +35,10 @@ class BotPaLM(Bot):
     """LLM chat model temperature: [0, 1]."""
     _temperature_functions: float
     """LLM text model temperature: [0, 1]."""
-    _prompt_functions: str
-    """Prompt to identify user-reported search needs and attributes."""
     _text_llm: _language_models._LanguageModel
     """LLM text model object."""
     _chat_llm: _language_models._LanguageModel
     """LLM chat model object."""
-    _chat_session: ChatSession
-    """LLM chat model session."""
 
     def __init__(self):
         """
@@ -61,10 +57,10 @@ class BotPaLM(Bot):
         self._genai_name = "PaLM"
         palm_settings = get_settings().get('palm')
         self._project_id = palm_settings.get('project_id')
-        self._text_llm_name = palm_settings.get('text_llm_name', "text-bison@001")
-        self._chat_llm_name = palm_settings.get('chat_llm_name', "chat-bison@001")
+        self._text_llm_name = palm_settings.get('text_llm_name', "text-bison@002")
+        self._chat_llm_name = palm_settings.get('chat_llm_name', "chat-bison@002")
         self._temperature_llm = palm_settings.get('temperature_llm', 0.5)
-        self._temperature_functions = palm_settings.get('temperature_functions', 0.5)
+        self._temperature_functions = palm_settings.get('temperature_functions', 0.2)
 
         # Initializing the PaLM environment:
         init(project=self._project_id)
@@ -72,24 +68,6 @@ class BotPaLM(Bot):
         # Initializing LLM:
         self._text_llm = TextGenerationModel.from_pretrained(model_name=self._text_llm_name)
         self._chat_llm = ChatModel.from_pretrained(model_name=self._chat_llm_name)
-        self._chat_session = self._chat_llm.start_chat(context=self._prompt_behavior)
-
-        # Approach to identify user-reported search needs and attributes:
-        self._prompt_functions = """
-            You are an excellent music consultant, capable of deeply understanding clients' preferences to provide 
-            personalized recommendations. Identify if the user is requesting a music recommendation, and if so, return a 
-            JSON containing the following attributes:
-            
-                - 'title': Music title;
-                - 'genre': Music genre;
-                - 'authors': Music authors;
-                - 'country': Music country;
-                - 'year': Music year.
-            
-            For attributes not identified in the user's message, you should use the value null in the JSON.
-            If the user has not requested a music recommendation, do not return anything. 
-            Do not invent information not provided by the user.
-            """
 
     def chat(self, user_message: str, **kwargs) -> (str, [dict]):
         """
@@ -113,19 +91,29 @@ class BotPaLM(Bot):
 
         user_message = user_message.replace('\'', "\"")
         bot_message, bot_citations = "", []
+        message_history = []
+
+        for message in self.chat_history:
+            if message.get('author', "") == "user":
+                chat_message = ChatMessage(content=message.get('message', ""), author="user")
+            else:
+                chat_message = ChatMessage(content=message.get('message', ""), author="bot")
+
+            message_history.append(chat_message)
+
+        # There should be odd number of messages for correct alternating turn:
+        if (len(message_history) % 2) != 0:
+            message_history = message_history[1:]
 
         try:
             # Identifying user-reported search needs and attributes:
-            prompt = self._prompt_functions + f"\nUser message: {user_message}"
+            prompt = self._prompt_function_music_recommendations + f"\n\n\nUser message: {user_message}"
             response = self._text_llm.predict(prompt=prompt, temperature=self._temperature_functions)
-            bot_message = response.text
-            bot_message = " ".join(bot_message.replace("\n", " ").split())
-            bot_citations = []
+            user_preferences = extract_json_from_text(response.text)
 
             try:
-                logging.debug(f"[{self._genai_name}] User preferences: {bot_message}")
-                search_params = json.loads(bot_message)
-                music_recommendations = self.get_music_recommendations(**search_params)
+                logging.debug(f"[{self._genai_name}] User preferences: {user_preferences}")
+                music_recommendations = self.get_music_recommendations(**user_preferences)
 
                 if music_recommendations:
                     self._citations_available = music_recommendations + self._citations_available
@@ -137,24 +125,21 @@ class BotPaLM(Bot):
                 # Workaround to couple LLM with external data without the need to retrain the model:
                 logging.debug(f"[{self._genai_name}] Injecting external data into LLM...")
                 citations_available_str = ";\n\n".join([json.dumps(citation) for citation in self._citations_available])
-                user_message_prompt = f"""
-                    User message:
-                    '{user_message}'
+                prompt = self._prompt_behavior + f"\n\nAvailable options:\n\n{citations_available_str}"
 
-                    Available options:
-                    {citations_available_str}
-                    """
-
-                response = self._chat_session.send_message(
-                    message=user_message_prompt,
-                    temperature=self._temperature_llm
+                chat_session = self._chat_llm.start_chat(
+                    context=prompt,
+                    message_history=message_history
+                )
+            else:
+                chat_session = self._chat_llm.start_chat(
+                    context=self._prompt_behavior,
+                    message_history=message_history
                 )
 
-                bot_message = response.text
-                bot_citations = self._extract_citations(bot_message=bot_message)
-            else:
-                response = self._chat_session.send_message(message=user_message, temperature=self._temperature_llm)
-                bot_message = response.text
+            response = chat_session.send_message(message=user_message, temperature=self._temperature_llm)
+            bot_message = strip_markdown_from_text(response.text)
+            bot_citations = self._extract_citations(bot_message=bot_message)
         except Exception as e:
             bot_message = self._error_message_general
             logging.error(f"[{self._genai_name}] {e}")
@@ -168,8 +153,6 @@ class BotPaLM(Bot):
             )
 
             bot_message = self._error_message_bot_message_without_citations
-
-        bot_message = " ".join(bot_message.replace("\n", " ").split())
 
         self._add_user_message(user_message=user_message)
         self._add_assistant_message(assistant_message=bot_message, assistant_citations=bot_citations)

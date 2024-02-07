@@ -26,6 +26,8 @@ class Bot:
     """Generative AI technology name."""
     _prompt_behavior: str
     """Bot behavior: initial prompt."""
+    _prompt_function_music_recommendations: str
+    """Prompt to identify user-reported search needs and attributes for music recommendations."""
     _citation_regex: str
     """Regex used to fetch citations from bot message."""
     _citation_threshold: float
@@ -52,6 +54,7 @@ class Bot:
         genai_settings = get_settings().get('genai_chat')
 
         self._prompt_behavior = genai_settings.get('prompt_behavior', "")
+        self._prompt_function_music_recommendations = genai_settings.get('prompt_function_music_recommendations', "")
         self._citation_regex = genai_settings.get('citation_regex', r'"([^"]*)"')
         self._citation_threshold = genai_settings.get('citation_threshold', 0.75)
         self._citation_field = genai_settings.get('citation_field', "title")
@@ -68,7 +71,8 @@ class Bot:
             genai_settings.get('error_message_bot_message_without_citations', "")
         self._error_message_general = genai_settings.get('error_message_general', "")
 
-    def get_genai_name(self) -> str:
+    @property
+    def genai_name(self) -> str:
         """
         Get the Generative AI technology name.
 
@@ -205,7 +209,8 @@ class Bot:
             }
         )
 
-    def get_chat_history(self) -> [dict]:
+    @property
+    def chat_history(self) -> [dict]:
         """
         Get chat history.
 

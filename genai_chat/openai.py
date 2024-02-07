@@ -16,8 +16,8 @@ import functools
 import logging
 import json
 
+from genai_chat.utils import extract_json_from_text, strip_markdown_from_text, merge_dict
 from genai_chat.settings import get_settings
-from genai_chat.utils import merge_dict
 from genai_chat.core import Bot
 
 
@@ -203,8 +203,6 @@ class BotOpenAI(Bot):
     """LLM model temperature: [0, 2]."""
     _temperature_functions: float
     """LLM model temperature: [0, 2]."""
-    _prompt_functions: str
-    """Prompt to identify user-reported search needs and attributes."""
     _openai_messages: [dict]
     """List of OpenAI messages from chat."""
     _openai_kwargs: dict
@@ -244,23 +242,6 @@ class BotOpenAI(Bot):
 
         self._openai_kwargs = {'deployment_id': self._deployment_id} if openai.api_type == "azure" else {}
         self._openai_messages = [{"role": "system", "content": self._prompt_behavior}]
-
-        # Approach to identify user-reported search needs and attributes:
-        self._prompt_functions = """
-            You are an excellent music consultant, capable of deeply understanding clients' preferences to provide 
-            personalized recommendations. Identify if the user is requesting a music recommendation, and if so, return a 
-            JSON containing the following attributes:
-            
-                - 'title': Music title;
-                - 'genre': Music genre;
-                - 'authors': Music authors;
-                - 'country': Music country;
-                - 'year': Music year.
-            
-            For attributes not identified in the user's message, you should use the value null in the JSON.
-            If the user has not requested a music recommendation, do not return anything. 
-            Do not invent information not provided by the user.
-            """
 
     def _get_llm_response(self, messages: [dict], temperature: float, **kwargs) -> EngineAPIResource:
         """
@@ -315,16 +296,14 @@ class BotOpenAI(Bot):
 
         try:
             # Identifying user-reported search needs and attributes:
-            prompt = self._prompt_functions + f"\nUser message: {user_message}"
+            prompt = self._prompt_function_music_recommendations + f"\n\n\nUser message: {user_message}"
             messages = [{"role": "system", "content": prompt}]
             response = self._get_llm_response(temperature=self._temperature_functions, messages=messages)
-            bot_message = response.choices[0].message.content
-            bot_message = " ".join(bot_message.replace("\n", " ").split())
+            user_preferences = extract_json_from_text(response.choices[0].message.content)
 
             try:
-                logging.debug(f"[{self._genai_name}] User preferences: {bot_message}")
-                search_params = json.loads(bot_message)
-                music_recommendations = self.get_music_recommendations(**search_params)
+                logging.debug(f"[{self._genai_name}] User preferences: {user_preferences}")
+                music_recommendations = self.get_music_recommendations(**user_preferences)
 
                 if music_recommendations:
                     self._citations_available = music_recommendations + self._citations_available
@@ -336,23 +315,14 @@ class BotOpenAI(Bot):
                 # Workaround to couple LLM with external data without the need to retrain the model:
                 logging.debug(f"[{self._genai_name}] Injecting external data into LLM...")
                 citations_available_str = ";\n\n".join([json.dumps(citation) for citation in self._citations_available])
-                user_message_prompt = f"""
-                    User message:
-                    '{user_message}'
+                prompt = self._prompt_behavior + f"\n\nAvailable options:\n\n{citations_available_str}"
 
-                    Available options:
-                    {citations_available_str}
-                    """
+                self._openai_messages.append({"role": "system", "content": prompt})
 
-                self._openai_messages.append({"role": "user", "content": user_message_prompt})
-                response = self._get_llm_response(temperature=self._temperature_llm, messages=self._openai_messages)
-
-                bot_message = response.choices[0].message.content
-                bot_citations = self._extract_citations(bot_message=bot_message)
-            else:
-                self._openai_messages.append({"role": "user", "content": user_message})
-                response = self._get_llm_response(temperature=self._temperature_llm, messages=self._openai_messages)
-                bot_message = response.choices[0].message.content
+            self._openai_messages.append({"role": "user", "content": user_message})
+            response = self._get_llm_response(temperature=self._temperature_llm, messages=self._openai_messages)
+            bot_message = strip_markdown_from_text(response.choices[0].message.content)
+            bot_citations = self._extract_citations(bot_message=bot_message)
         except Exception as e:
             bot_message = self._error_message_general
             logging.error(f"[{self._genai_name}] {e}")
@@ -368,7 +338,6 @@ class BotOpenAI(Bot):
             bot_message = self._error_message_bot_message_without_citations
 
         self._openai_messages.append({"role": "assistant", "content": bot_message})
-        bot_message = " ".join(bot_message.replace("\n", " ").split())
 
         self._add_user_message(user_message=user_message)
         self._add_assistant_message(assistant_message=bot_message, assistant_citations=bot_citations)
@@ -484,13 +453,8 @@ class BotOpenAIFC(BotOpenAI):
                 logging.debug(f"[{self._genai_name}] Injecting external data into LLM...")
                 self._openai_messages.append({"role": "function", "name": function_name, "content": function_content})
 
-                response = self._get_llm_response(temperature=self._temperature_llm, messages=self._openai_messages)
-                bot_message = response.choices[0].message.content
-            else:
-                # No `function_calling` actions detected:
-                response = self._get_llm_response(temperature=self._temperature_llm, messages=self._openai_messages)
-                bot_message = response.choices[0].message.content
-
+            response = self._get_llm_response(temperature=self._temperature_llm, messages=self._openai_messages)
+            bot_message = strip_markdown_from_text(response.choices[0].message.content)
             bot_citations = self._extract_citations(bot_message=bot_message)
         except Exception as e:
             bot_message = self._error_message_general
@@ -507,7 +471,6 @@ class BotOpenAIFC(BotOpenAI):
             bot_message = self._error_message_bot_message_without_citations
 
         self._openai_messages.append({"role": "assistant", "content": bot_message})
-        bot_message = " ".join(bot_message.replace("\n", " ").split())
 
         self._add_user_message(user_message=user_message)
         self._add_assistant_message(assistant_message=bot_message, assistant_citations=bot_citations)

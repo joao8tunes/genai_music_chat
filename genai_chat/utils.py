@@ -10,8 +10,11 @@ General utilities.
 
 from fuzzywuzzy.fuzz import \
     ratio, partial_ratio, token_sort_ratio, token_set_ratio, partial_token_sort_ratio, partial_token_set_ratio
+from bs4 import BeautifulSoup
 from hashlib import md5
-import re
+import markdown
+import logging
+import json
 
 
 def compare_strings(s1: str, s2: str, fuzzy_method: str = "ratio", case_sensitive: bool = True) -> float:
@@ -123,3 +126,87 @@ def md5_hash(string: str) -> str:
     string_hash = md5(string.encode()).hexdigest()
 
     return string_hash
+
+
+def extract_json_from_text(text: str) -> dict:
+    """
+    Extract JSON content from text.
+
+    Parameters
+    ----------
+    text: str
+        Text.
+
+    Returns
+    -------
+    json_content: dict
+        JSON content.
+    """
+    json_content = None
+
+    text = " ".join(text.replace("\n", " ").split()).replace("'", "\"")
+
+    try:
+        # Find the starting position of the first '{' (opening of the JSON)
+        opening_position = text.find('{')
+
+        # Check if the opening of the JSON is found
+        if opening_position != -1:
+            # Find the closing position of the corresponding '}'
+            closing_position = text.find('}', opening_position + 1)
+
+            # Check if the closing brace is found
+            if closing_position != -1:
+                # Extract the JSON substring
+                json_string = text[opening_position:closing_position + 1]
+
+                # Load the JSON
+                json_object = json.loads(json_string)
+                json_content = json_object
+            else:
+                logging.warning("Closing brace '}' not found.")
+        else:
+            logging.warning("Opening brace '{' not found.")
+    except json.JSONDecodeError as e:
+        logging.warning(f"Error decoding the JSON: {str(e)}")
+        pass
+
+    return json_content
+
+
+def strip_markdown_from_text(text: str) -> str:
+    """
+    Strip Markdown formatting from a given text.
+
+    Parameters
+    ----------
+    text : str
+        The input text containing Markdown formatting.
+
+    Returns
+    -------
+    str
+        The text with Markdown formatting removed.
+
+    Notes
+    -----
+    This function uses the `markdown` and `BeautifulSoup` libraries to convert
+    Markdown-formatted text to HTML and then extract the plain text.
+
+    Examples
+    --------
+    >>> markdown_text = "# Heading\\nSome *italic* and **bold** text."
+    >>> stripped_text = strip_markdown_from_text(markdown_text)
+    >>> print(stripped_text)
+    'Heading\\nSome italic and bold text.'
+    """
+    # Converting Markdown to HTML:
+    html = markdown.markdown(text)
+
+    # Parsing HTML using BeautifulSoup:
+    soup = BeautifulSoup(html, features="html.parser")
+
+    # Getting plain text from HTML:
+    cleaned_text = soup.get_text()
+
+    return cleaned_text
